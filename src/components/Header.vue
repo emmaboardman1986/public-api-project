@@ -8,7 +8,7 @@
       </div>
       <div class="menu">
         <p @click="handleMenuToggle">MENU ICON</p>
-          <div v-if="isMenuOpen" class="side-nav">
+          <div v-if="isMenuOpen" class="nav__links">
             <p @click="handleMenuToggle">X</p>
             <router-link tag="li" to="/">Home</router-link>
             <router-link tag="li" to="/about">About</router-link>
@@ -50,8 +50,14 @@ nav {
   padding: 0 4%;
   color: $primaryLight;
   height: $headerHeight;
+
+  @media screen and (min-width: $breakpoint-md){
+    background-color: transparent;
+  }
 }
-.side-nav {
+
+
+.nav__links {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -78,18 +84,4 @@ nav {
   }
 }
 
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 </style>

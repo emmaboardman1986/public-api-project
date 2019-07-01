@@ -31,6 +31,10 @@ export default class PageBackground extends Vue {}
   height: 100%;
   margin-top: $headerHeight;
   background-color: $primaryYellow;
+
+  @media screen and (min-width: $breakpoint-md){
+    margin-top: 0;
+  }
 }
 
 .background-triangle-wrapper {

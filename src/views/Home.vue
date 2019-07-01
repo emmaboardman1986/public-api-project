@@ -68,12 +68,21 @@ export default class Home extends Vue {}
   display: grid;
   grid-template-columns: repeat(12, calc(100% / 12));
   grid-template-rows: repeat(12, calc(100% / 12));
+
+   @media screen and (min-width: $breakpoint-md){
+    height: 50vh;
+  }
 }
 .home__header__img {
   width: 58vw;
   grid-column: 1 / 7;
   margin-left: -5%;
   margin-top: -6%;
+  
+  @media screen and (min-width: $breakpoint-md){
+    width: 38vw;
+    margin-left: 0;
+  }
 }
 
 .home__header__title {
@@ -88,12 +97,33 @@ export default class Home extends Vue {}
   &:first-line {
     line-height: 0.6;
   }
+
+  @media screen and (min-width: $breakpoint-md){
+     grid-row: 5 / 9;
+     width: 20%;
+     line-height: 1;
+     padding-left: 30%;
+
+      &:first-line {
+    line-height: 0.8;
+  }
+  }
 }
+
 .home__header__subtitle {
   grid-column: 1 / 12;
   grid-row: 11 / 12;
   padding-top: 9%;
-  margin-left: -8%;
+  // margin-left: -8%;
+
+ @media screen and (min-width: $breakpoint-md){
+    grid-row: 12 / 13;
+    margin-top: 0;
+    text-align: left;
+    padding-left: 27.5%;
+    padding-top: 5%;
+  }
+  
 }
 
 .home__content {

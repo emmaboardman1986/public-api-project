@@ -6,9 +6,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import DetailTitleText from '@/components/UI/TitleText.vue'
 
 @Component({
   components: {
+    DetailTitleText
   }
 })
 export default class Detail extends Vue {}

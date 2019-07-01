@@ -6,45 +6,55 @@
         v-titleSizeDirective="'1.7em'"
         text="London on a ShoeString"
         class="home__header__title"
-      />
+      >London on a ShoeString</HomeTitleText>
       <HomeSubTitleText
         text="Limit your budget, not your experience"
         class="home__header__subtitle"
       />
     </div>
     <div class="home__content">
-      <HomeInformationCard class="home__content__informationcard">
-        <HomeCTABtn text="Suprise me with a deal!" />
-        <p>Find deals in London!</p>
-        <p>Click the button above to be surprised with a random deal, or keep scrolling to find our 10 latest deals</p>
-      </HomeInformationCard>
-      <HomeTitleText
-        v-titleSizeDirective="'0.9em'"
-        text="⇡ Random Deal"
-        class="home__content__subheading--random"
-      />
-        <HomeTitleText
-          v-titleSizeDirective="'0.9em'"
-          text="Top 10 Deals ⇣"
-          class="home__content__subheading--top10"
-        />
-        <div class="home__content__sort">
-          <p>Sort by price ▼</p>
+      <div class="home__content--desktop-wrapper--toprow">
+        <HomeInformationCard class="home__content__informationcard">
+          <HomeCTABtn text="Suprise me with a deal!" />
+          <p>Find deals in London!</p>
+          <p>Click the button above to be surprised with a random deal, or keep scrolling to find our 10 latest deals</p>
+        </HomeInformationCard>
+        <div class="home__content--desktop-wrapper--titles">
+          <HomeTitleText
+            v-titleSizeDirective="'0.9em'"
+            text="⇡ Random Deal"
+            class="home__content__subheading--random"
+          >
+            <span class="home__content__home-title-text--mobile">⇡</span> Random Deal
+            <span class="home__content__home-title-text--desktop">⇢</span>
+          </HomeTitleText>
+          <HomeTitleText
+            v-titleSizeDirective="'0.9em'"
+            text="Top 10 Deals ⇣"
+            class="home__content__subheading--top10"
+          >Top 10 Deals ⇣</HomeTitleText>
         </div>
-      <HomeDealCard />
-      <HomeDealCard />
+      </div>
+      <div class="home__content__sort">
+        <p>Sort by price ▼</p>
+      </div>
+      <div class="home__content__desktop-wrapper--dealcards">
+        <HomeDealCard />
+        <HomeDealCard />
+        <HomeDealCard />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import HomeTitleText from "@/components/UI/TitleText.vue";
-import HomeSubTitleText from "@/components/UI/SubTitleText.vue";
-import HomeInformationCard from "@/components/UI/InformationCard.vue";
-import HomeCTABtn from "@/components/UI/CTAButton.vue";
-import HomeDealCard from "@/components/UI/DealCard.vue";
-import titleSizeDirective from "@/directives/titlesize-directive";
+import { Component, Vue } from 'vue-property-decorator'
+import HomeTitleText from '@/components/UI/TitleText.vue'
+import HomeSubTitleText from '@/components/UI/SubTitleText.vue'
+import HomeInformationCard from '@/components/UI/InformationCard.vue'
+import HomeCTABtn from '@/components/UI/CTAButton.vue'
+import HomeDealCard from '@/components/UI/DealCard.vue'
+import titleSizeDirective from '@/directives/titlesize-directive'
 
 @Component({
   components: {
@@ -69,7 +79,7 @@ export default class Home extends Vue {}
   grid-template-columns: repeat(12, calc(100% / 12));
   grid-template-rows: repeat(12, calc(100% / 12));
 
-   @media screen and (min-width: $breakpoint-md){
+  @media screen and (min-width: $breakpoint-md) {
     height: 50vh;
   }
 }
@@ -78,8 +88,8 @@ export default class Home extends Vue {}
   grid-column: 1 / 7;
   margin-left: -5%;
   margin-top: -6%;
-  
-  @media screen and (min-width: $breakpoint-md){
+
+  @media screen and (min-width: $breakpoint-md) {
     width: 38vw;
     margin-left: 0;
   }
@@ -98,15 +108,15 @@ export default class Home extends Vue {}
     line-height: 0.6;
   }
 
-  @media screen and (min-width: $breakpoint-md){
-     grid-row: 5 / 9;
-     width: 20%;
-     line-height: 1;
-     padding-left: 30%;
+  @media screen and (min-width: $breakpoint-md) {
+    grid-row: 5 / 9;
+    width: 20%;
+    line-height: 1;
+    padding-left: 30%;
 
-      &:first-line {
-    line-height: 0.8;
-  }
+    &:first-line {
+      line-height: 0.8;
+    }
   }
 }
 
@@ -114,16 +124,14 @@ export default class Home extends Vue {}
   grid-column: 1 / 12;
   grid-row: 11 / 12;
   padding-top: 9%;
-  // margin-left: -8%;
 
- @media screen and (min-width: $breakpoint-md){
+  @media screen and (min-width: $breakpoint-md) {
     grid-row: 12 / 13;
     margin-top: 0;
     text-align: left;
     padding-left: 27.5%;
     padding-top: 5%;
   }
-  
 }
 
 .home__content {
@@ -134,21 +142,67 @@ export default class Home extends Vue {}
   margin-top: 5%;
 }
 
+.home__content--desktop-wrapper--toprow {
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (min-width: $breakpoint-md) {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
+
+.home__content--desktop-wrapper--titles {
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width: $breakpoint-md) {
+    order: 1;
+    padding-top: 2%;
+    justify-content: space-between;
+  }
+}
+
 .home__content__informationcard {
   width: 95%;
   height: 100%;
   margin-top: 4%;
+
+  @media screen and (min-width: $breakpoint-md) {
+    order: 2;
+    width: 50%;
+  }
 }
 
 .home__content__subheading--random {
   align-self: flex-end;
   padding-right: 3%;
+  @media screen and (min-width: $breakpoint-md) {
+    align-self: flex-start;
+  }
+}
+
+.home__content__home-title-text--desktop {
+  display: none;
+  @media screen and (min-width: $breakpoint-md) {
+    display: initial;
+  }
+}
+
+.home__content__home-title-text--mobile {
+  @media screen and (min-width: $breakpoint-md) {
+    display: none;
+  }
 }
 
 .home__content__subheading--top10 {
   align-self: flex-start;
   padding-left: 3%;
   margin-top: -3%;
+  @media screen and (min-width: $breakpoint-md) {
+    align-self: flex-start;
+    padding-left: 0;
+    margin-top: 5%;
+  }
 }
 
 .home__content__sort {
@@ -157,5 +211,23 @@ export default class Home extends Vue {}
   margin-top: -10%;
   font-size: 0.75em;
   margin-bottom: 1%;
+
+  @media screen and (min-width: $breakpoint-md) {
+    margin-top: 3%;
+  }
+}
+
+.home__content__desktop-wrapper--dealcards {
+  width: 90%;
+  @media screen and (min-width: $breakpoint-md) {
+    display: flex;
+    /deep/ div {
+      width: 80%;
+      /deep/ .dealcard__price {
+        margin-left: 70%;
+        width: 40%;
+      }
+    }
+  }
 }
 </style>

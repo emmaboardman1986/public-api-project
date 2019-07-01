@@ -1,12 +1,12 @@
 <template>
   <div class="header">
     <nav>
-      <div class="logo">
+      <div class="header__logo">
         <router-link to="/">
           <p>LS</p>
         </router-link>
       </div>
-      <div class="menu">
+      <div class="header__menu--mobile">
         <p @click="handleMenuToggle">MENU ICON</p>
           <div v-if="isMenuOpen" class="nav__links">
             <p @click="handleMenuToggle">X</p>

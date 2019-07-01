@@ -1,6 +1,6 @@
 <template>
     <div>
-    <h1>{{ text }}</h1>
+    <h1><slot></slot></h1>
     </div>
 </template>
 
@@ -9,7 +9,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class TitleText extends Vue {
-    @Prop() text!: string;
 }
 </script>
 

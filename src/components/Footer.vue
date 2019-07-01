@@ -1,11 +1,11 @@
 <template>
-  <div class="hello">
-    <h1>{{ title }}</h1>
-  </div>
+  <footer>
+    <p>SiteMap</p>
+  </footer>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class Footer extends Vue {
@@ -15,18 +15,17 @@ export default class Footer extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
+footer {
+  background-color: $primaryGrey;
+  height: 100%;
+  padding: 2%;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+p {
+  font-family: $subTitleFont;
+  color: $primaryLight;
+  text-align: left;
+  margin: 0;
+  margin-left: 2%;
+  font-size: 0.9em;
 }
 </style>

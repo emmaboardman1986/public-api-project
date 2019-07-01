@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class Header extends Vue {
@@ -29,8 +29,8 @@ export default class Header extends Vue {
 
   isMenuOpen: boolean = false;
 
-  handleMenuToggle() {
-    this.isMenuOpen = !this.isMenuOpen;
+  handleMenuToggle () {
+    this.isMenuOpen = !this.isMenuOpen
   }
 }
 </script>
@@ -41,12 +41,15 @@ export default class Header extends Vue {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 99;
 }
 nav {
   background-color: $primaryGrey;
   display: flex;
   justify-content: space-between;
   padding: 0 4%;
+  color: $primaryLight;
+  height: $headerHeight;
 }
 .side-nav {
   display: flex;
@@ -60,6 +63,7 @@ nav {
   background-color: $primaryYellow;
   overflow-x: hidden;
   padding-top: 8%;
+  color: $primaryDark;
 
   li {
     list-style: none;
@@ -70,6 +74,7 @@ nav {
   p {
     padding-left: 10%;
     font-weight: 600;
+    color: $primaryDark;
   }
 }
 

@@ -12,6 +12,7 @@
         :isCurrentDealLoaded="this.isCurrentDealLoaded"
         :relatedDeals="this.relatedDeals"
         :allAvailableCategories="this.allAvailableCategories"
+        :randomDeal="this.randomDeal"
       ></router-view>
     </app-page-background>
     <app-footer title="I AM A FOOTER" />
@@ -514,14 +515,14 @@ export default class Home extends Vue {
 
   created() {
     this.fetchAllCategories();
-    //  axios
-    //     .get('https://public-api.livingsocial.co.uk/v1/deal/london')
-    //     .then(response => {
-    //         console.log(response);
-    //         this.allAvailableDeals = response.data.deals;
-    //         this.topTenDeals = response.data.deals.slice(0,10);
-    //         this.isDealDataLoaded = true
-    //     })
+     axios
+        .get('https://public-api.livingsocial.co.uk/v1/deal/london')
+        .then(response => {
+            console.log(response);
+            this.allAvailableDeals = response.data.deals;
+            this.topTenDeals = response.data.deals.slice(0,10);
+            this.isDealDataLoaded = true
+        })
   }
 
   getRandomDeal() {

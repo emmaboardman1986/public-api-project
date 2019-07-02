@@ -20,7 +20,7 @@
         <div class="nav__links" :class="{scrolling: scrollPosition > 10}">
           <router-link tag="li" to="/">Home</router-link>
           <router-link tag="li" to="/categories" >Categories</router-link>
-          <router-link tag="li" to="/detail">Random</router-link>
+          <router-link tag="li" to="/random">Random</router-link>
         </div>
       </div>
     </nav>

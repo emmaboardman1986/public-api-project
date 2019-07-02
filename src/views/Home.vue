@@ -107,14 +107,18 @@ export default class Home extends Vue {}
   }
 
   @media screen and (min-width: $breakpoint-md) {
-    grid-row: 5 / 9;
+    grid-row: 4 / 9;
     width: 20%;
     line-height: 1;
     padding-left: 30%;
+    font-size: 2em !important;
 
     &:first-line {
       line-height: 0.8;
     }
+  }
+  @media screen and (max-width: 400px){
+    font-size: 1.2em !important;
   }
 }
 
@@ -124,11 +128,17 @@ export default class Home extends Vue {}
   padding-top: 9%;
 
   @media screen and (min-width: $breakpoint-md) {
-    grid-row: 12 / 13;
-    margin-top: 0;
+    grid-row: 11 / 13;
     text-align: left;
     padding-left: 27.5%;
-    padding-top: 5%;
+    padding-top: 7%;
+    font-size: 1.2em;
+  }
+   @media screen and (max-width: 400px){
+    font-size: 0.9em;
+    padding-left: 5%;
+    padding-top: 0;
+    margin-top: 0;
   }
 }
 
@@ -138,6 +148,10 @@ export default class Home extends Vue {}
   align-items: center;
   padding: 5%;
   margin-top: 5%;
+
+   @media screen and (max-width: 400px) {
+     margin-top: 0;
+   }
 }
 
 .home__content--desktop-wrapper--toprow {

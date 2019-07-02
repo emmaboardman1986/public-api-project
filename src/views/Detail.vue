@@ -1,6 +1,7 @@
 <template>
   <div class="detail">
     <DetailTitleText class="detail__title">Deal Title</DetailTitleText>
+    <div class="detail__desktop-wrapper--info">
     <DetailInformationCard class="detail__informationcard">
       <img src="https://static.wowcher.co.uk/images/deal/10692934/456982.jpg" />
     </DetailInformationCard>
@@ -9,8 +10,8 @@
         <span class="detail__dealinformation__price--original">£51.75</span>
         <div class="detail__dealinformation__price--now">£25</div>
       </div>
-      <p>Description</p>
-      <div class="detail__small-information-card">
+      <div class="detail__dealinformation__description"><p>Description</p></div>
+      <div class="detail__dealinformation__small-information-card">
         <DetailSmallInformationCard>
           <p>57%</p>
           <p class="detail__small-information-card--infotext">discount</p>
@@ -24,12 +25,15 @@
           <p class="detail__small-information-card--infotext">discount</p>
         </DetailSmallInformationCard>
       </div>
-      <div class="detail__purchase">
-        <div class="detail__purchase__img">
+      <div class="detail__dealinformation__purchase">
+        <div class="detail__dealinformation__purchase__img">
           <img src="@/assets/explosion.svg" />
         </div>
-        <DetailCTAButton text="Purchase Deal From WowCher" class="detail__purchase__btn"></DetailCTAButton>
+        <DetailCTAButton text="Purchase Deal From WowCher" class="detail__dealinformation__purchase__btn"></DetailCTAButton>
       </div>
+    </div>
+    </div>
+    <div class="detail__desktop-wrapper--related">
       <div class="detail__related">
         <DetailTitleText v-titleSizeDirective="'0.8em'" class="detail__title">Related Deals</DetailTitleText>
         <p>Other deals from the same category</p>
@@ -39,8 +43,8 @@
           <DetailDealCard />
         </div>
       </div>
+      </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
@@ -74,6 +78,7 @@ export default class Detail extends Vue {}
   flex-direction: column;
   align-items: center;
   text-align: left;
+  margin-top: $headerHeight;
 }
 
 .detail__title {
@@ -81,10 +86,25 @@ export default class Detail extends Vue {}
   padding: 0 5%;
 }
 
+.detail__desktop-wrapper--info {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  @media screen and (min-width: $breakpoint-md){
+   flex-direction: row;
+   align-items: flex-start;
+  }
+}
+
 .detail__informationcard {
   width: 90%;
   /deep/ .informationcard__innerbox {
     padding: 0;
+  }
+  @media screen and (min-width: $breakpoint-md){
+   order: 2;
   }
 }
 
@@ -95,13 +115,36 @@ img {
 
 .detail__dealinformation {
   width: 90%;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (min-width: $breakpoint-md){
+   order: 1;
+   margin-right: 5%;
+   width: 70%;
+  }
+}
+
+.detail__dealinformation__description {
+   @media screen and (min-width: $breakpoint-md){
+   order: 1;
+  }
+
 }
 .detail__dealinformation__price {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
   margin-top: 3%;
+
+   @media screen and (min-width: $breakpoint-md){
+   order: 2;
+   margin-bottom: 10%;
+  }
+
 }
+
+.detail_
 
 .detail__dealinformation__price--original {
   text-decoration: line-through;
@@ -114,7 +157,7 @@ img {
   margin-left: 5%;
 }
 
-.detail__small-information-card {
+.detail__dealinformation__small-information-card {
   display: flex;
   justify-content: space-between;
 
@@ -135,16 +178,24 @@ img {
     font-size: 0.8em;
     font-weight: 400;
   }
+ @media screen and (min-width: $breakpoint-md){
+   order: 3;
+  }
+  
 }
 
-.detail__purchase {
+.detail__dealinformation__purchase {
   display: grid;
   text-align: center;
   padding: 5% 0;
   grid-template-columns: repeat(1, 100%);
   grid-template-rows: repeat(3, 25%);
 
-  .detail__purchase__img {
+  @media screen and (min-width: $breakpoint-md){
+   order: 4;
+  }
+
+  .detail__dealinformation__purchase__img {
     grid-column: 1/2;
     grid-row: 1/4;
     img {
@@ -152,9 +203,15 @@ img {
       width: 50%;
     }
   }
-  .detail__purchase__btn {
+  .detail__dealinformation__purchase__btn {
     grid-column: 1/2;
     grid-row: 2/3;
+  }
+}
+
+.detail__desktop-wrapper--related {
+  @media screen and (min-width: $breakpoint-md){
+   width: 90%;
   }
 }
 
@@ -166,7 +223,16 @@ img {
     width: 45%;
     /deep/ p {
       font-size: 1.5em;
+ @media screen and (max-width: 420px){
+   font-size: 1.35em;
+  }
+
     }
+  @media screen and (min-width: $breakpoint-md){
+   width: 30%;
+  }
+
+  
   }
 }
 </style>

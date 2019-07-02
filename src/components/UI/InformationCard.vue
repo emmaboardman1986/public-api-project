@@ -24,24 +24,23 @@ export default class InformationCard extends Vue {
 }
 
 .informationcard__outerbox {
-    background-color: $primaryDark;
-    border: dotted 2px $primaryLight;
-    grid-column: 1 / 24;
-    grid-row: 1 / 24;
+  background-color: $primaryDark;
+  border: dotted 2px $primaryLight;
+  grid-column: 1 / 24;
+  grid-row: 1 / 24;
 }
 
 .informationcard__innerbox {
-    background-color: $primaryLight;
-    grid-column: 2 / 25;
-    grid-row: 2 / 25;
-    margin-top: 0.5%;
-    margin-left: -0.5%;
-    padding: 2% 6%;
+  background-color: $primaryLight;
+  grid-column: 2 / 25;
+  grid-row: 2 / 25;
+  margin-top: 0.5%;
+  margin-left: -0.5%;
+  padding: 2% 6%;
 }
 
 p {
-    font-size: 0.95em;
-    text-align: justify;
+  font-size: 0.95em;
+  text-align: justify;
 }
-
 </style>

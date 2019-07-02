@@ -4,7 +4,6 @@
       <img src="@/assets/trainer.svg" class="home__header__img" />
       <HomeTitleText
         v-titleSizeDirective="'1.7em'"
-        text="London on a ShoeString"
         class="home__header__title"
       >London on a ShoeString</HomeTitleText>
       <HomeSubTitleText
@@ -30,7 +29,6 @@
           </HomeTitleText>
           <HomeTitleText
             v-titleSizeDirective="'0.9em'"
-            text="Top 10 Deals ⇣"
             class="home__content__subheading--top10"
           >Top 10 Deals ⇣</HomeTitleText>
         </div>
@@ -48,13 +46,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import HomeTitleText from '@/components/UI/TitleText.vue'
-import HomeSubTitleText from '@/components/UI/SubTitleText.vue'
-import HomeInformationCard from '@/components/UI/InformationCard.vue'
-import HomeCTABtn from '@/components/UI/CTAButton.vue'
-import HomeDealCard from '@/components/UI/DealCard.vue'
-import titleSizeDirective from '@/directives/titlesize-directive'
+import { Component, Vue } from "vue-property-decorator";
+import HomeTitleText from "@/components/UI/TitleText.vue";
+import HomeSubTitleText from "@/components/UI/SubTitleText.vue";
+import HomeInformationCard from "@/components/UI/InformationCard.vue";
+import HomeCTABtn from "@/components/UI/CTAButton.vue";
+import HomeDealCard from "@/components/UI/DealCard.vue";
+import titleSizeDirective from "@/directives/titlesize-directive";
 
 @Component({
   components: {

@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="home__content__sort">
-        <p>Sort by price ▼</p>
+        <p @click="handlePriceSort">Sort by price ▼</p>
       </div>
       <div class="home__content__desktop-wrapper--dealcards">
         <div v-if="!isDataLoaded"><p>loading...</p></div>
@@ -70,6 +70,9 @@ export default class Home extends Vue {
   @Prop() isDataLoaded!: boolean
   @Prop() topTenDeals!: []
 
+  handlePriceSort() {
+    this.$emit('handlePriceSort');
+  }
 }
 
 </script>

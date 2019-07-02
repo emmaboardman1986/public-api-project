@@ -2,7 +2,9 @@
   <div id="app">
     <app-header/>
     <app-page-background>
-      <router-view :isDataLoaded="this.isDealDataLoaded" :topTenDeals="this.topTenDeals"></router-view>
+      <router-view 
+      :isDataLoaded="this.isDealDataLoaded" :topTenDeals="this.topTenDeals"
+      @handlePriceSort="handlePriceSort"></router-view>
     </app-page-background>
     <app-footer title="I AM A FOOTER" />
   </div>
@@ -30,6 +32,7 @@ import axios from 'axios'
 export default class Home extends Vue {
   topTenDeals: any[] = [];
   isDealDataLoaded: boolean = false;
+  sortPriceAsc: boolean = false;
 
   created() {
      axios
@@ -39,6 +42,15 @@ export default class Home extends Vue {
             this.topTenDeals = response.data.deals.slice(0,10); 
             this.isDealDataLoaded = true          
         })
+  }
+
+  handlePriceSort(){
+    this.sortPriceAsc = !this.sortPriceAsc;
+    if (this.sortPriceAsc){
+    this.topTenDeals.sort((a,b) => (a.price > b.price) ? 1 : -1);
+    } else {
+       this.topTenDeals.sort((a,b) => (a.price < b.price) ? 1 : -1);
+    }
   }
 }
 </script>

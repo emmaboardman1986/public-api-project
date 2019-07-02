@@ -5,7 +5,7 @@
       <p>Find a deal by Category</p>
     </CategoriesInformationCard>
     <div class="categories__small-info-cards">
-      <CategoriesSmallInformationCard class="categories__small-info-card" v-for="category in allAvailableCategories" :key={category}>{{ category }}</CategoriesSmallInformationCard>
+      <CategoriesSmallInformationCard class="categories__small-info-card" v-for="category in allAvailableCategories" :key="category.shortName">{{ category.displayName }}</CategoriesSmallInformationCard>
     </div>
   </div>
 </template>
@@ -24,7 +24,11 @@ import CategoriesSmallInformationCard from "@/components/UI/SmallInformationCard
   }
 })
 export default class Categories extends Vue {
-   @Prop() allAvailableCategories!: string[];
+   @Prop() allAvailableCategories!: any[];
+
+   get uniqueCategories() {
+     return [...new Set(this.allAvailableCategories.map(p => p.category))]
+   }
 }
 </script>
 

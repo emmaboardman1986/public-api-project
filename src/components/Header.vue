@@ -11,9 +11,8 @@
         <div v-if="isMenuOpen" class="nav__links">
           <p @click="handleMenuToggle">X</p>
           <router-link tag="li" to="/">Home</router-link>
-          <router-link tag="li" to="/about">About</router-link>
-          <router-link tag="li" to="/detail">Detail</router-link>
           <router-link tag="li" to="/categories">Categories</router-link>
+            <router-link tag="li" to="/random">Random</router-link>
         </div>
       </div>
       <div class="header__menu--desktop">

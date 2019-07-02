@@ -7,12 +7,23 @@
         <p class="random__info-card--title">{{ randomDeal.headline }}</p>
       </RandomInformationCard>
       <div class="random__options">
-      <p>You can either head straight to WowCher to purchase your random deal, OR, click below to generator some random and hopefully enticing photos of your random deal</p>
-      <RandomCTAButton text="More random please!" />
+        <p>
+          You can either head straight to
+          <span
+            @click="handleWowCherClick(randomDeal.urlPath)"
+            class="random__options--wowcher"
+          >WowCher</span> to purchase your random deal, OR, click below to generator some random and hopefully enticing photos of your random deal
+        </p>
+        <RandomCTAButton
+          @click.native="getRandomImage"
+          class="random__options--morerandom"
+          text="Random Image please!"
+        />
+        <RandomInformationCard class="random__informationcard--img">
+          <img :src="randomDeal.images[0].imageUrl + '.jpg'" alt="image representing deal" />
+        </RandomInformationCard>
+      </div>
     </div>
-    </div>
-    
-
   </div>
 </template>
 
@@ -20,7 +31,7 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import RandomTitleText from "@/components/UI/TitleText.vue";
 import RandomInformationCard from "@/components/UI/InformationCard.vue";
-import RandomCTAButton from '@/components/UI/CTAButton.vue';
+import RandomCTAButton from "@/components/UI/CTAButton.vue";
 
 @Component({
   components: {
@@ -32,10 +43,31 @@ import RandomCTAButton from '@/components/UI/CTAButton.vue';
 export default class Random extends Vue {
   @Prop() randomDeal!: {};
 
+  randomImage: string = "";
+
+
   created() {
     this.$emit("handleRandomDeal");
   }
-}
+
+  handleWowCherClick(urlPath: string) {
+    let url = "http://wowcher.co.uk" + urlPath;
+    window.open(url);
+  }
+
+  getRandomImage() {
+     let randomNum: Number = Math.floor(
+      Math.random() * this.randomDeal.images.length
+    );
+    console.log(this.randomDeal.images);
+    console.log(randomNum);
+    this.randomImage = this.randomImage[
+      Math.floor(Math.random() * this.randomDeal.images.length)
+    ];
+    console.log(this.randomImage);
+    }
+  }
+
 </script>
 
 <style lang="scss" scoped>
@@ -43,9 +75,9 @@ export default class Random extends Vue {
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   text-align: left;
-  height: 86vh;
 
   @media screen and (min-width: $breakpoint-md) {
     margin-top: $headerHeight;
@@ -60,6 +92,7 @@ export default class Random extends Vue {
   .random__info-card {
     p {
       padding: 4%;
+      padding-bottom: 0;
       text-align: center;
     }
     @media screen and (min-width: $breakpoint-md) {
@@ -74,19 +107,40 @@ export default class Random extends Vue {
   }
 
   .random__dealinformation {
-    width: 100%;
+    width: 90%;
     background-image: url("../assets/explosion.svg");
     background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
+
+    .random__options--wowcher {
+      font-weight: 600;
+    }
+
+    .random__options--morerandom {
+      margin-left: 25%;
+      margin-bottom: 10%;
+    }
   }
 
   .random__info-card--title {
     font-family: $titleFont;
     font-weight: 700;
     font-size: 2em;
+    margin-top: 0;
+    margin-top: 0;
+  }
+
+  .random__informationcard--img {
+    margin-bottom: 10%;
+    img {
+      width: 100%;
+    }
+    /deep/ .informationcard__innerbox {
+      padding: 0;
+    }
   }
 }
 </style>

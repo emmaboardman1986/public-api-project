@@ -529,11 +529,9 @@ export default class Home extends Vue {
     let randomNum: Number = Math.floor(
       Math.random() * this.allAvailableDeals.length
     );
-    console.log(randomNum);
     this.randomDeal = this.allAvailableDeals[
       Math.floor(Math.random() * this.allAvailableDeals.length)
     ];
-    console.log(this.randomDeal);
   }
 
   getCurrentDeal(dealId: string) {
@@ -560,14 +558,14 @@ export default class Home extends Vue {
           categoriesArray: any[],
           catObj: {}
         ) {
-          if (catObj["dealCategories"].length > 0) {
-            if (
-              categoriesArray.includes(catObj["dealCategories"][0].name) ===
-              false
-            ) {
-              categoriesArray.push(catObj["dealCategories"][0].name);
+          let uniqueCategoriesArray: any[] = [];
+          if (catObj["dealCategories"].length == 1) {
+              let newObj = {
+                displayName: catObj["dealCategories"][0].name,
+                urlName: catObj["dealCategories"][0].shortName
+              }
+              categoriesArray.push(newObj);
             }
-          }
           return categoriesArray;
         },
         []);

@@ -1,6 +1,6 @@
 <template>
-<div>
-    <router-link tag="div" class="dealcard" :to="{name: 'detail', params: { id: dealinfo.id}}">
+<div class="dealcard">
+    <router-link tag="div" class="dealcard__link" :to="{name: 'detail', params: { id: dealinfo.id}}">
     <div class="dealcard__outerbox"></div>
     <div class="dealcard__innerbox">
       
@@ -25,7 +25,14 @@ export default class DealCard extends Vue {
 </script>
 
 <style lang="scss" scoped>
+
 .dealcard {
+   @media screen and (min-width: $breakpoint-md){
+     
+      margin-right: 5%;
+  }
+}
+.dealcard__link {
   width: 90%;
   height: 22vh;
   display: grid;
@@ -34,9 +41,7 @@ export default class DealCard extends Vue {
   margin-bottom: 5%;
 
   @media screen and (min-width: $breakpoint-md){
-      width: 25%;
-      height: 30vh;
-      margin-right: 5%;
+      width: 20vw;
   }
 
 }
@@ -73,9 +78,10 @@ export default class DealCard extends Vue {
   }
 
   @media screen and (min-width: $breakpoint-md){
-  grid-row: 17/21;
-  grid-column: 20/25;
-   margin-left: 30%;
+  grid-row: 16/22;
+  grid-column: 19/25;
+  margin-left: 35%;
+  padding-top:1vh;
   }
 }
 
@@ -86,5 +92,9 @@ p {
   font-size: 1.2em;
   text-align: left;
   margin: 0;
+
+   @media screen and (min-width: $breakpoint-md){
+     font-size: 1.1em;
+   }
 }
 </style>

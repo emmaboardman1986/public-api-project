@@ -14,7 +14,7 @@
     <div class="home__content">
       <div class="home__content--desktop-wrapper--toprow">
         <HomeInformationCard class="home__content__informationcard">
-          <HomeCTABtn @click.native="$emit('handleRandomDeal')" text="Suprise me with a deal!" />
+           <router-link to="/random"><HomeCTABtn text="Suprise me with a deal!" /></router-link>
           <p>Find deals in London!</p>
           <p>Click the button above to be surprised with a random deal, or keep scrolling to find our 10 latest deals</p>
         </HomeInformationCard>
@@ -130,11 +130,17 @@ export default class Home extends Vue {
   grid-row: 11 / 12;
   padding-top: 9%;
 
+  @media screen and (min-width: $breakpoint-sm){
+    grid-column: 4 / 12;
+    grid-row: 12/13;
+  }
+
   @media screen and (min-width: $breakpoint-md) {
-    grid-row: 11 / 13;
+    grid-row: 12 / 13;
+    grid-column: 4/9;
     text-align: left;
-    padding-left: 27.5%;
-    padding-top: 7%;
+    // padding-left: 27.5%;
+    padding-top: 9%;
     font-size: 1.2em;
   }
    @media screen and (max-width: 400px){
@@ -170,6 +176,10 @@ export default class Home extends Vue {
 .home__content--desktop-wrapper--titles {
   display: flex;
   flex-direction: column;
+
+  @media screen and (min-width: $breakpoint-sm){
+    margin-bottom: 3%;
+  }
   @media screen and (min-width: $breakpoint-md) {
     order: 1;
     padding-top: 2%;
@@ -233,11 +243,13 @@ export default class Home extends Vue {
 }
 
 .home__content__desktop-wrapper--dealcards {
-  width: 100%;
+  width: 95%;
   
   @media screen and (min-width: $breakpoint-md) {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-left: 13%;
     }
 }
 </style>

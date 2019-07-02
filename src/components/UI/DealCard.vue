@@ -2,11 +2,11 @@
   <div class="dealcard">
     <div class="dealcard__outerbox"></div>
     <div class="dealcard__innerbox">
-      <p>Deal Title</p>
-      <div class="dealcard__price">
-        <p>£20</p>
-      </div>
+      <p>{{ dealinfo.headline }}</p>
     </div>
+      <div class="dealcard__price">
+        <p>£{{ dealinfo.price }}</p>
+      </div>
   </div>
 </template>
 
@@ -15,18 +15,25 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class InformationCard extends Vue {
-  @Prop() text!: string;
+  @Prop() dealinfo!: {};
 }
 </script>
 
 <style lang="scss" scoped>
 .dealcard {
   width: 90%;
-  height: 20vh;
+  height: 22vh;
   display: grid;
   grid-template-columns: repeat(24, calc(100% / 24));
   grid-template-rows: repeat(24, calc(100% / 24));
   margin-bottom: 5%;
+
+  @media screen and (min-width: $breakpoint-md){
+      width: 25%;
+      height: 30vh;
+      margin-right: 5%;
+  }
+
 }
 
 .dealcard__outerbox {
@@ -34,6 +41,7 @@ export default class InformationCard extends Vue {
   border: dashed 2px $primaryLight;
   grid-column: 1 / 24;
   grid-row: 1 / 24;
+
 }
 
 .dealcard__innerbox {
@@ -49,15 +57,20 @@ export default class InformationCard extends Vue {
   background-color: $primaryLight;
   border: 4px solid $primaryDark;
   border-radius: 6px;
-  // grid-column: 20 / 25;
-  margin-right: -20%;
-  margin-left: 77%;
-  margin-top: 5%;
-  width: 33%;
+  grid-row: 17/22;
+  grid-column: 20/25;
+  margin-left: 10%;
+  width: 100%;
   padding: 0 1%;
   p {
     color: $primaryDark;
     text-align: center;
+  }
+
+  @media screen and (min-width: $breakpoint-md){
+  grid-row: 17/21;
+  grid-column: 20/25;
+   margin-left: 30%;
   }
 }
 
@@ -65,7 +78,7 @@ p {
   font-family: $titleFont;
   font-weight: 700;
   color: $primaryLight;
-  font-size: 2em;
+  font-size: 1.2em;
   text-align: left;
   margin: 0;
 }

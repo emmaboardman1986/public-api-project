@@ -37,22 +37,22 @@
         <p>Sort by price ▼</p>
       </div>
       <div class="home__content__desktop-wrapper--dealcards">
-        <HomeDealCard />
-        <HomeDealCard />
-        <HomeDealCard />
+        <div v-if="!isDataLoaded"><p>loading...</p></div>
+        <HomeDealCard v-else v-for="deal in topTenDeals" :key="deal.id" :dealinfo="deal"/>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import HomeTitleText from "@/components/UI/TitleText.vue";
 import HomeSubTitleText from "@/components/UI/SubTitleText.vue";
 import HomeInformationCard from "@/components/UI/InformationCard.vue";
 import HomeCTABtn from "@/components/UI/CTAButton.vue";
 import HomeDealCard from "@/components/UI/DealCard.vue";
 import titleSizeDirective from "@/directives/titlesize-directive";
+import { store } from '@/utils/store.js'
 
 @Component({
   components: {
@@ -66,7 +66,12 @@ import titleSizeDirective from "@/directives/titlesize-directive";
     titleSizeDirective
   }
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  @Prop() isDataLoaded!: boolean
+  @Prop() topTenDeals!: []
+
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -219,7 +224,7 @@ export default class Home extends Vue {}
 
 .home__content__sort {
   margin-left: auto;
-  margin-right: 8%;
+  margin-right: 16%;
   margin-top: -10%;
   font-size: 0.75em;
   margin-bottom: 1%;
@@ -230,16 +235,10 @@ export default class Home extends Vue {}
 }
 
 .home__content__desktop-wrapper--dealcards {
-  width: 90%;
+  width: 100%;
   @media screen and (min-width: $breakpoint-md) {
     display: flex;
-    /deep/ div {
-      width: 80%;
-      /deep/ .dealcard__price {
-        margin-left: 70%;
-        width: 40%;
-      }
+    flex-wrap: wrap;
     }
-  }
 }
 </style>

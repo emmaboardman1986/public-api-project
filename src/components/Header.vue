@@ -36,11 +36,6 @@ export default class Header extends Vue {
 
   updateScroll() {
     this.scrollPosition = window.scrollY;
-    console.log(this.scrollPosition);
-  }
-
-  get updatedScroll() {
-    return this.scrollPosition;
   }
 
   mounted() {

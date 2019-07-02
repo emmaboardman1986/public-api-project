@@ -14,7 +14,7 @@
     <div class="home__content">
       <div class="home__content--desktop-wrapper--toprow">
         <HomeInformationCard class="home__content__informationcard">
-          <HomeCTABtn text="Suprise me with a deal!" />
+          <HomeCTABtn @click.native="$emit('handleRandomDeal')" text="Suprise me with a deal!" />
           <p>Find deals in London!</p>
           <p>Click the button above to be surprised with a random deal, or keep scrolling to find our 10 latest deals</p>
         </HomeInformationCard>
@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="home__content__sort">
-        <p @click="handlePriceSort">Sort by price ▼</p>
+        <p @click="$emit('handlePriceSort')">Sort by price ▼</p>
       </div>
       <div class="home__content__desktop-wrapper--dealcards">
         <div v-if="!isDataLoaded"><p>loading...</p></div>
@@ -52,7 +52,6 @@ import HomeInformationCard from "@/components/UI/InformationCard.vue";
 import HomeCTABtn from "@/components/UI/CTAButton.vue";
 import HomeDealCard from "@/components/UI/DealCard.vue";
 import titleSizeDirective from "@/directives/titlesize-directive";
-import { store } from '@/utils/store.js'
 
 @Component({
   components: {
@@ -69,10 +68,6 @@ import { store } from '@/utils/store.js'
 export default class Home extends Vue {
   @Prop() isDataLoaded!: boolean
   @Prop() topTenDeals!: []
-
-  handlePriceSort() {
-    this.$emit('handlePriceSort');
-  }
 }
 
 </script>
@@ -239,6 +234,7 @@ export default class Home extends Vue {
 
 .home__content__desktop-wrapper--dealcards {
   width: 100%;
+  
   @media screen and (min-width: $breakpoint-md) {
     display: flex;
     flex-wrap: wrap;

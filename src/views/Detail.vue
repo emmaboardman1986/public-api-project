@@ -1,35 +1,35 @@
 <template>
   <div class="detail">
-    <DetailTitleText class="detail__title">Deal Title</DetailTitleText>
+    <DetailTitleText class="detail__title">{{ currentDeal.headline }}</DetailTitleText>
     <div class="detail__desktop-wrapper--info">
     <DetailInformationCard class="detail__informationcard">
-      <img src="https://static.wowcher.co.uk/images/deal/10692934/456982.jpg" />
+      <img :src="currentDeal.images[0].imageUrl + '.jpg'" alt="image representing deal" />
     </DetailInformationCard>
     <div class="detail__dealinformation">
       <div class="detail__dealinformation__price">
-        <span class="detail__dealinformation__price--original">£51.75</span>
-        <div class="detail__dealinformation__price--now">£25</div>
+        <span class="detail__dealinformation__price--original">£{{ currentDeal.originalPrice}}</span>
+        <div class="detail__dealinformation__price--now">£{{ currentDeal.price }}</div>
       </div>
-      <div class="detail__dealinformation__description"><p>Description</p></div>
+      <div class="detail__dealinformation__description"><p>{{ currentDeal.title}}</p></div>
       <div class="detail__dealinformation__small-information-card">
         <DetailSmallInformationCard>
-          <p>57%</p>
+          <p>{{ currentDeal.discountPercentage }}%</p>
           <p class="detail__small-information-card--infotext">discount</p>
         </DetailSmallInformationCard>
         <DetailSmallInformationCard>
-          <p>57%</p>
-          <p class="detail__small-information-card--infotext">discount</p>
+          <p>{{ currentDeal.totalBought }}</p>
+          <p class="detail__small-information-card--infotext">tickets sold</p>
         </DetailSmallInformationCard>
         <DetailSmallInformationCard>
-          <p>57%</p>
-          <p class="detail__small-information-card--infotext">discount</p>
+          <p>{{ currentDeal.totalRemaining}}</p>
+          <p class="detail__small-information-card--infotext">tickets left</p>
         </DetailSmallInformationCard>
       </div>
       <div class="detail__dealinformation__purchase">
         <div class="detail__dealinformation__purchase__img">
           <img src="@/assets/explosion.svg" />
         </div>
-        <DetailCTAButton text="Purchase Deal From WowCher" class="detail__dealinformation__purchase__btn"></DetailCTAButton>
+        <DetailCTAButton text="Purchase Deal From WowCher" class="detail__dealinformation__purchase__btn" @click.native="handleWowCherClick(currentDeal.urlPath)"></DetailCTAButton>
       </div>
     </div>
     </div>
@@ -38,9 +38,7 @@
         <DetailTitleText v-titleSizeDirective="'0.8em'" class="detail__title">Related Deals</DetailTitleText>
         <p>Other deals from the same category</p>
         <div class="detail__related__dealcards">
-          <DetailDealCard />
-          <DetailDealCard />
-          <DetailDealCard />
+          <DetailDealCard v-for="deal in relatedDeals" :key="deal.id" :dealinfo="deal"/>
         </div>
       </div>
       </div>
@@ -48,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import DetailTitleText from "@/components/UI/TitleText.vue";
 import DetailInformationCard from "@/components/UI/InformationCard.vue";
 import DetailSmallInformationCard from "@/components/UI/SmallInformationCard.vue";
@@ -68,7 +66,25 @@ import titleSizeDirective from "@/directives/titlesize-directive";
     titleSizeDirective
   }
 })
-export default class Detail extends Vue {}
+export default class Detail extends Vue {
+   @Prop() currentDeal!: {}
+   @Prop() relatedDeals!: [] 
+  
+  created(){
+    this.fetchDealData();
+  }
+
+  fetchDealData(){
+    this.$emit('getCurrentDeal', this.$route.params.id);
+  }
+
+  handleWowCherClick(urlPath: string){
+    let url = "http://wowcher.co.uk" + urlPath;
+    window.open(url);
+  }
+}
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -129,6 +145,7 @@ img {
 }
 
 .detail__dealinformation__description {
+  text-align: justify;
    @media screen and (min-width: $breakpoint-md){
    order: 1;
   }
@@ -146,8 +163,6 @@ img {
   }
 
 }
-
-.detail_
 
 .detail__dealinformation__price--original {
   text-decoration: line-through;

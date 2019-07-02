@@ -5,20 +5,13 @@
       <p>Find a deal by Category</p>
     </CategoriesInformationCard>
     <div class="categories__small-info-cards">
-      <CategoriesSmallInformationCard class="categories__small-info-card">Category</CategoriesSmallInformationCard>
-      <CategoriesSmallInformationCard class="categories__small-info-card">Category</CategoriesSmallInformationCard>
-      <CategoriesSmallInformationCard class="categories__small-info-card">Category</CategoriesSmallInformationCard>
-      <CategoriesSmallInformationCard class="categories__small-info-card">Category</CategoriesSmallInformationCard>
-      <CategoriesSmallInformationCard class="categories__small-info-card">Category</CategoriesSmallInformationCard>
-      <CategoriesSmallInformationCard class="categories__small-info-card">Category</CategoriesSmallInformationCard>
-      <CategoriesSmallInformationCard class="categories__small-info-card">Category</CategoriesSmallInformationCard>
-      <CategoriesSmallInformationCard class="categories__small-info-card">Category</CategoriesSmallInformationCard>
+      <CategoriesSmallInformationCard class="categories__small-info-card" v-for="category in allAvailableCategories" :key={category}>{{ category }}</CategoriesSmallInformationCard>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import CategoriesTitleText from "@/components/UI/TitleText.vue";
 import CategoriesInformationCard from "@/components/UI/InformationCard.vue";
 import CategoriesSmallInformationCard from "@/components/UI/SmallInformationCard.vue";
@@ -30,7 +23,9 @@ import CategoriesSmallInformationCard from "@/components/UI/SmallInformationCard
     CategoriesSmallInformationCard
   }
 })
-export default class Categories extends Vue {}
+export default class Categories extends Vue {
+   @Prop() allAvailableCategories!: string[];
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,20 +1,25 @@
 <template>
-  <div class="dealcard">
+<div>
+    <router-link tag="div" class="dealcard" :to="{name: 'detail', params: { id: dealinfo.id}}">
     <div class="dealcard__outerbox"></div>
     <div class="dealcard__innerbox">
+      
       <p>{{ dealinfo.headline }}</p>
+       
     </div>
       <div class="dealcard__price">
         <p>£{{ dealinfo.price }}</p>
       </div>
+      </router-link>
   </div>
+
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
-export default class InformationCard extends Vue {
+export default class DealCard extends Vue {
   @Prop() dealinfo!: {};
 }
 </script>

@@ -78,7 +78,10 @@ export default class Detail extends Vue {}
   flex-direction: column;
   align-items: center;
   text-align: left;
+
+  @media screen and (min-width: $breakpoint-md){
   margin-top: $headerHeight;
+  }
 }
 
 .detail__title {

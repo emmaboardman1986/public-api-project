@@ -20,9 +20,8 @@
         <span v-else>Unlucky!</span> Your present deal has
         <span v-if="randomDeal.images.length >= 2"></span>
         <span v-else>only</span> 
-         {{ randomDeal.images.length}} image
-         <span v-if="randomDeal.images.length >= 2">s</span>
-          <span v-if="randomDeal.images.length >= 2">:)</span><span v-else>:(</span>
+         {{ randomDeal.images.length}} image<span v-if="randomDeal.images.length >= 2">s</span>
+          <span v-if="randomDeal.images.length >= 2"> :)</span><span v-else> :(</span>
       
         <RandomCTAButton
           @click.native="getRandomImage"

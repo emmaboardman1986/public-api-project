@@ -24,6 +24,12 @@ import router from '../router'
   }
 })
 export default class SiteMap extends Vue {
+routerCopy !: any;
+
+getRouterCopy(router: any){
+  this.routerCopy = Object.assign({}, router)
+}
+
 
 siteMap: any = ''
 getRoutesList(routes: any[], pre: string) {
@@ -42,9 +48,9 @@ getRoutesList(routes: any[], pre: string) {
   }, []);
 }
 
-getRoutesXML() {
-  const list = this.getRoutesList(router.options.routes, 'https://pretendURL.com')
-    .map(route => `<url><loc>${route}</loc></url>`)
+getRoutesXML(routerCopy: any) {
+  const list = this.getRoutesList(routerCopy.options.routes, 'https://pretendURL.com')
+    .map((route: {}) => `<url><loc>${route}</loc></url>`)
     .join('\r\n');
   this.siteMap =  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     ${list}
@@ -52,8 +58,10 @@ getRoutesXML() {
 }
 
 created() {
+    this.getRouterCopy(router);
+    console.log("copy:", this.routerCopy);
     console.log(router)
-    this.getRoutesXML();
+    this.getRoutesXML(this.routerCopy);
 }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="random">
     <RandomTitleText class="random__title">Random Deal Generator</RandomTitleText>
-    <div v-if="isRandomLoading">Loading...</div>
+    <div v-if="isRandomDealLoading">Loading...</div>
     <div v-else class="random__dealinformation">
       <RandomInformationCard class="random__info-card">
         <p>Your random deal is:</p>
@@ -19,10 +19,9 @@
         <span v-if="randomDeal.images.length >= 2">Lucky!</span>
         <span v-else>Unlucky!</span> Your present deal has
         <span v-if="randomDeal.images.length >= 2"></span>
-        <span v-else>only</span> 
+        <span v-else>only</span>
          {{ randomDeal.images.length}} image<span v-if="randomDeal.images.length >= 2">s</span>
           <span v-if="randomDeal.images.length >= 2"> :)</span><span v-else> :(</span>
-      
         <RandomCTAButton
           @click.native="getRandomImage"
           class="random__options--morerandom"
@@ -38,10 +37,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import RandomTitleText from "@/components/UI/TitleText.vue";
-import RandomInformationCard from "@/components/UI/InformationCard.vue";
-import RandomCTAButton from "@/components/UI/CTAButton.vue";
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import RandomTitleText from '@/components/UI/TitleText.vue'
+import RandomInformationCard from '@/components/UI/InformationCard.vue'
+import RandomCTAButton from '@/components/UI/CTAButton.vue'
 import { Getter, Mutation, Action } from 'vuex-class'
 import { Deal } from '@/store/types'
 
@@ -54,35 +53,34 @@ import { Deal } from '@/store/types'
 })
 export default class Random extends Vue {
   randomImageNum: number = 0;
-  isRandomImageNumLoaded: boolean = false;
+  isRandomImageNumLoaded: boolean = false
 
-  @Getter randomDeal!: Deal;
-  @Getter isRandomDealLoading!: boolean;
+  @Getter randomDeal!: Deal
+  @Getter isRandomDealLoading!: boolean
 
-   @Action('getRandomDeal') getRandomDeal: any;
+   @Action('getRandomDeal') getRandomDeal: any
 
-  randomImage: string = "";
+  randomImage: string = ''
 
-
-  created() {
-    this.$emit("handleRandomDeal");
-    this.getRandomDeal();
+  created () {
+    this.$emit('handleRandomDeal')
+    this.getRandomDeal()
   }
 
-  handleWowCherClick(urlPath: string) {
-    let url = "http://wowcher.co.uk" + urlPath;
-    window.open(url);
+  handleWowCherClick (urlPath: string) {
+    let url = 'http://wowcher.co.uk' + urlPath
+    window.open(url)
   }
 
-  getRandomImage() {
-    this.isRandomImageNumLoaded = false;
-     let randomNum: number = Math.floor(
+  getRandomImage () {
+    this.isRandomImageNumLoaded = false
+    let randomNum: number = Math.floor(
       Math.random() * this.randomDeal.images.length
-    );
+    )
     this.randomImageNum = randomNum
-    this.isRandomImageNumLoaded = true;
-    }
+    this.isRandomImageNumLoaded = true
   }
+}
 
 </script>
 
@@ -148,7 +146,7 @@ export default class Random extends Vue {
       margin-bottom: 10%;
     }
     }
-  
+
   }
 
   .random__info-card--title {

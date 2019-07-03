@@ -1,5 +1,4 @@
 <template>
- 
   <div class="sitemap">
     <siteMapTitleText class="sitemap__title">SiteMap</siteMapTitleText>
     <div class="sitemap__content">
@@ -7,14 +6,12 @@
     <siteMapInformationCard>{{ siteMap }}</siteMapInformationCard>
     </div>
      </div>
- 
 </template>
 
-
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import siteMapTitleText from "@/components/UI/TitleText.vue";
-import siteMapInformationCard from "@/components/UI/InformationCard.vue"
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import siteMapTitleText from '@/components/UI/TitleText.vue'
+import siteMapInformationCard from '@/components/UI/InformationCard.vue'
 import router from '../router'
 
 @Component({
@@ -26,46 +23,42 @@ import router from '../router'
 export default class SiteMap extends Vue {
 routerCopy !: any;
 
-getRouterCopy(router: any){
+getRouterCopy (router: any) {
   this.routerCopy = Object.assign({}, router)
 }
 
-
 siteMap: any = ''
-getRoutesList(routes: any[], pre: string) {
+getRoutesList (routes: any[], pre: string) {
   return routes.reduce((array, route) => {
-    const path = `${pre}${route.path}`;
+    const path = `${pre}${route.path}`
 
     if (route.path !== '*') {
-      array.push(path);
+      array.push(path)
     }
 
     if (route.children) {
-      array.push(...this.getRoutesList(route.children, `${path}/`));
+      array.push(...this.getRoutesList(route.children, `${path}/`))
     }
 
-    return array;
-  }, []);
+    return array
+  }, [])
 }
 
-getRoutesXML(routerCopy: any) {
-  const list = this.getRoutesList(routerCopy.options.routes, 'https://pretendURL.com')
+getRoutesXML (routerCopy: any) {
+  const list = this.getRoutesList(routerCopy.options.routes, 'https://emma-public-api-project.netlify.com/')
     .map((route: {}) => `<url><loc>${route}</loc></url>`)
-    .join('\r\n');
-  this.siteMap =  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    .join('\r\n')
+  this.siteMap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     ${list}
-  </urlset>`;
+  </urlset>`
 }
 
-created() {
-    this.getRouterCopy(router);
-    console.log("copy:", this.routerCopy);
-    console.log(router)
-    this.getRoutesXML(this.routerCopy);
+created () {
+  this.getRouterCopy(router)
+  this.getRoutesXML(this.routerCopy)
 }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .sitemap {
@@ -87,4 +80,3 @@ created() {
 }
 
 </style>
-

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import { RouterLinkStub } from '@vue/test-utils';
 
 Vue.use(Router)
 
@@ -40,5 +39,7 @@ export default new Router({
       component: () => import('./views/SiteMap.vue')
     }
   ],
+    scrollBehavior () {
+    return { x: 0, y: 0 }
+}
 })
-

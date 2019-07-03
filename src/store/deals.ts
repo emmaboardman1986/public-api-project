@@ -208,94 +208,93 @@ export const actions: ActionTree<State, any> = {
     },
     sortDeals({ commit
     }) {
-        state.sortAsc = !state.sortAsc
-        if (state.sortAsc) {
-            let updatedState = state.topTenDeals.sort((a, b) => (a.price > b.price ? 1 : -1));
+      state.sortAsc = !state.sortAsc
+      if (state.sortAsc) {
+      let updatedState = state.topTenDeals.sort((a, b) => (a.price > b.price ? 1 : -1))
             commit('updateTopTen', updatedState)
         } else {
-            let updatedState = state.topTenDeals.sort((a, b) => (a.price < b.price ? 1 : -1));
-            commit('updateTopTen', updatedState)
+            let updatedState = state.topTenDeals.sort((a, b) => (a.price < b.price ? 1 : -1))
+      commit('updateTopTen', updatedState)
+    }
+  },
+  getCurrentDeal ({ commit }, dealId
+  ) {
+    let currentDeal = state.deals.find(deal => deal.id === dealId)
+    commit('updateCurrentDeal', currentDeal)
+    commit('changeCurrentDealLoadingState', false)
+  },
+  // categories
+  fetchCurrentDealCategory ({
+        commit
+  }, dealId) {
+    axios
+      .get('https://public-api.livingsocial.co.uk/v1/deal/' + dealId)
+      .then(response => {
+        console.log('full deal data: ', response)
+        commit('updateCurrentDealCategory', response.data.category.shortName)
+        commit('changeCurrentDealCategoryLoadingState', false)
+      })
+  },
+    fetchDealsByCategory ({
+    commit
+  }, category) {
+    axios
+      .get('https://public-api.livingsocial.co.uk/v1/deal/london/' + category)
+      .then(response => {
+        commit('updateDealsPerCurrentCategory', response.data.deals)
+        commit('changeDealsPerCurrentCategoryLoadingState', false)
+            })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          commit('updateCategorySuccessStatus', false)
         }
-    },
-    getCurrentDeal({ commit }, dealId
-    ) {
-        let currentDeal = state.deals.find(deal => deal.id == dealId);
-        commit('updateCurrentDeal', currentDeal)
-        commit('changeCurrentDealLoadingState', false)
-    },
-    // categories
-    fetchCurrentDealCategory({
+      })
+  },
+  fetchAllCategories ({
         commit
-    }, dealId) {
-        axios
-            .get('https://public-api.livingsocial.co.uk/v1/deal/' + dealId)
-            .then(response => {
-                console.log("full deal data: ", response);
-                commit('updateCurrentDealCategory', response.data.category.shortName)
-                commit('changeCurrentDealCategoryLoadingState', false)
-            })
-    },
-    fetchDealsByCategory({
-        commit
-    }, category) {
-        axios
-            .get('https://public-api.livingsocial.co.uk/v1/deal/london/' + category)
-            .then(response => {
-                commit('updateDealsPerCurrentCategory', response.data.deals)
-                commit('changeDealsPerCurrentCategoryLoadingState', false)
-            })
-            .catch((error) => {
-                if (error.response.status == 404) {
-                    commit('updateCategorySuccessStatus', false)
-                }
-            })
-    },
-    fetchAllCategories({
-        commit
-    }) {
-        axios
-            .get("https://public-api.livingsocial.co.uk/v1/category")
-            .then(response => {
-                let availableCategories = response.data.reduce(function (
-                    categoriesArray: any[],
-                    catObj: {
+  }) {
+    axios
+      .get('https://public-api.livingsocial.co.uk/v1/category')
+      .then(response => {
+        let availableCategories = response.data.reduce(function (
+          categoriesArray: any[],
+          catObj: {
                         canonicalPathType: string
                         dealCategories: [{
                             canonicalPathType: string
                             displayInFe: any
                             id: number
                             locations: any[]
-                        name: string
-                        position: number
-                        shortName: string
-                    }]
-                    displayInFe: string
+                            name: string
+                            position: number
+                            shortName: string
+                        }]
+                        displayInFe: string
                         id: number
                         name: string
                         position: number
                         shortName: string
                         subCategories: any[]
-                    _score: string
+                        _score: string
                     }
-            ) {
-            let uniqueCategoriesArray: any[] = [];
-            if (catObj["dealCategories"].length == 1) {
-                let newObj = {
-                    displayName: catObj["dealCategories"][0].name,
-                    urlName: catObj["dealCategories"][0].shortName
+         ) {
+          if (catObj['dealCategories'].length === 1) {
+                        let newObj = {
+              displayName: catObj['dealCategories'][0].name,
+              urlName: catObj['dealCategories'][0].shortName
                 }
-                categoriesArray.push(newObj);
-            }
-            return categoriesArray;
+                categoriesArray.push(newObj)
+               }
+              return categoriesArray
         },
-        []);
-        commit('updateAllAvailableCategories', availableCategories)
-        commit('changeCategoriesLoadingState', false)
-    });
-    },
-resetCategorySuccessStatus({
+        [])
+            commit('updateAllAvailableCategories', availableCategories)
+            commit('changeCategoriesLoadingState', false)
+        })
+  },
+  resetCategorySuccessStatus ({
     commit
-}) {
+  }) {
     commit('updateCategorySuccessStatus', true)
-}
+  }
 }

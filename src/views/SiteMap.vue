@@ -24,6 +24,7 @@ import router from '../router'
   }
 })
 export default class SiteMap extends Vue {
+
 siteMap: any = ''
 getRoutesList(routes: any[], pre: string) {
   return routes.reduce((array, route) => {

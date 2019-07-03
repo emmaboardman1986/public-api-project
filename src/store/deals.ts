@@ -19,7 +19,8 @@ export const state: State = {
     currentDealCategory: '',
     currentDealCategoryLoading: true,
     dealsPerCurrentCategory: [],
-    isDealsPerCurrentCategoryLoading: true
+    isDealsPerCurrentCategoryLoading: true,
+    categorySuccessStatus: true
 }
 
 export const getters: GetterTree<State, any> = {
@@ -37,7 +38,10 @@ export const getters: GetterTree<State, any> = {
     isCategoriesLoading: state => state.isCategoriesLoading,
     currentDealCategory: state => state.currentDealCategory,
     relatedDeals: state => state.dealsPerCurrentCategory.slice(0, 3),
-    isdealsPerCurrentCategoryLoading: state => state.isDealsPerCurrentCategoryLoading
+    isDealsPerCurrentCategoryLoading: state => state.isDealsPerCurrentCategoryLoading,
+    categorySuccessStatus: state => state.categorySuccessStatus,
+    dealsPerCurrentCategory: state => state.dealsPerCurrentCategory
+
 }
 
 export const mutations: MutationTree<State> = {
@@ -87,6 +91,9 @@ export const mutations: MutationTree<State> = {
     },
     changeCategoriesLoadingState(state, loading){
         state.isCategoriesLoading = loading
+    },
+    updateCategorySuccessStatus(state, status){
+        state.categorySuccessStatus = status
     }
 
 }
@@ -149,7 +156,7 @@ export const actions: ActionTree<State, any> = {
             .get('https://public-api.livingsocial.co.uk/v1/deal/' + dealId)
             .then(response => {
                 console.log("full deal data: ", response);
-                commit('updateCurrentDealCategory', response.data.category.id)
+                commit('updateCurrentDealCategory', response.data.category.shortName)
                 commit('changeCurrentDealCategoryLoadingState', false)
             })
     },
@@ -162,6 +169,11 @@ export const actions: ActionTree<State, any> = {
             console.log("deals by category:", response.data.deals)
             commit('updateDealsPerCurrentCategory', response.data.deals)
             commit('changeDealsPerCurrentCategoryLoadingState', false)
+        })
+        .catch((error) => {
+            if (error.response.status == 404){
+                commit('updateCategorySuccessStatus',false)
+            }
         })
     },
     fetchAllCategories({
@@ -187,6 +199,10 @@ export const actions: ActionTree<State, any> = {
           []);
           commit('updateAllAvailableCategories', availableCategories)
           commit('changeCategoriesLoadingState', false)
-        });
+        }) ;
+    },
+    resetCategorySuccessStatus({commit
+    }){
+        commit('updateCategorySuccessStatus',true)
     }
 }

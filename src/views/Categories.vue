@@ -12,7 +12,6 @@
         {{ category.displayName }}
        </router-link>
         </CategoriesSmallInformationCard>
-        </router-link>
     </div>
   </div>
 </template>
@@ -81,12 +80,12 @@ export default class Categories extends Vue {
   }
 
   .categories__small-info-cards {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     padding-top: 5%;
-
+  
     @media screen and (min-width: $breakpoint-md) {
       padding-top: 0;
     }
@@ -97,11 +96,24 @@ export default class Categories extends Vue {
       font-family: $titleFont;
       font-weight: 700;
       padding: 3% 5%;
+
+    a {
+      text-decoration: none;
+      color: $primaryDark;
+    }
+      &:hover {
+      background-color: $primaryDark;
+      opacity: 1;
+      a {
+color: $primaryLight;
+      }
+      
+
       @media screen and (min-width: $breakpoint-md) {
         margin-right: 0;
       }
     }
+    }
   }
 }
 </style>
-

@@ -15,13 +15,20 @@
             class="random__options--wowcher"
           >WowCher</span> to purchase your random deal, OR, click below to generator some random and hopefully enticing photos of your random deal
         </p>
+        <p>Note: If the present deal has only one associated image, it won't be particularly random.</p>
+        <span v-if="randomDeal.images.length >= 2">Lucky!</span>
+        <span v-else>Unlucky!</span> 
+        Your present deal has {{ randomDeal.images.length}} image<span v-if="randomDeal.images.length >= 2">s</span>. 
+        <span v-if="randomDeal.images.length >= 2">:)</span><span v-else>:(</span></p>
+      
         <RandomCTAButton
           @click.native="getRandomImage"
           class="random__options--morerandom"
           text="Random Image please!"
         />
         <RandomInformationCard class="random__informationcard--img">
-          <img :src="randomDeal.images[0].imageUrl + '.jpg'" alt="image representing deal" />
+          <img v-if="!isRandomImageNumLoaded" src="../assets/question.svg">
+          <img v-else :src="randomDeal.images[randomImageNum].imageUrl + '.jpg'" :alt="randomDeal.images[randomImageNum].alt" />
         </RandomInformationCard>
       </div>
     </div>
@@ -44,6 +51,9 @@ import { Deal } from '@/store/types'
   }
 })
 export default class Random extends Vue {
+  randomImageNum: number = 0;
+  isRandomImageNumLoaded: boolean = false;
+
   @Getter randomDeal: Deal;
   @Getter isRandomDealLoading: boolean;
 
@@ -63,15 +73,12 @@ export default class Random extends Vue {
   }
 
   getRandomImage() {
-     let randomNum: Number = Math.floor(
+    this.isRandomImageNumLoaded = false;
+     let randomNum: number = Math.floor(
       Math.random() * this.randomDeal.images.length
     );
-    console.log(this.randomDeal.images);
-    console.log(randomNum);
-    this.randomImage = this.randomImage[
-      Math.floor(Math.random() * this.randomDeal.images.length)
-    ];
-    console.log(this.randomImage);
+    this.randomImageNum = randomNum
+    this.isRandomImageNumLoaded = true;
     }
   }
 

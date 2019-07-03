@@ -2,9 +2,7 @@
   <div id="app">
     <app-header />
     <app-page-background>
-      <router-view
-        :allAvailableCategories="this.allAvailableCategories"
-      ></router-view>
+      <router-view />
     </app-page-background>
     <app-footer title="I AM A FOOTER" />
   </div>
@@ -31,12 +29,9 @@ import { Deal } from './store/types'
   }
 })
 export default class Home extends Vue {
-  allAvailableCategories: any[] = [];
-
   @Action('loadAllAvailableDeals') loadAllAvailableDeals: any;
 
   created() {
-    // this.fetchAllCategories();
     this.loadAllAvailableDeals();
 
   }

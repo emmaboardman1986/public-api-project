@@ -4,7 +4,7 @@
     <div v-if="isCurrentDealLoading">Loading...</div>
     <div v-else class="detail__desktop-wrapper--info">
     <DetailInformationCard class="detail__informationcard">
-      <img :src="currentDeal.images[0].imageUrl + '.jpg'" alt="image representing deal" />
+      <img :src="currentDeal.images[0].imageUrl + '.jpg'" :alt="currentDeal.images[0].alt" />
     </DetailInformationCard>
     <div class="detail__dealinformation">
       <div class="detail__dealinformation__price">
@@ -75,7 +75,7 @@ export default class Detail extends Vue {
    @Getter isCurrentDealLoading: boolean
    @Getter currentDealCategory: string
    @Getter relatedDeals: Deal[]
-   @Getter isdealsPerCurrentCategoryLoading: boolean
+   @Getter isDealsPerCurrentCategoryLoading: boolean
    @Getter dealsPerCurrentCategory: []
 
    @Action('getCurrentDeal') getCurrentDeal: any;

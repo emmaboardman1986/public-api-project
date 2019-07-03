@@ -1,9 +1,17 @@
 <template>
-  <div v-if="isdealsPerCurrentCategoryLoading">Loading...</div>
-  <div v-else class="category">
-    <categoryTitleText class="category__title">{{ dealsPerCurrentCategory.name }}</categoryTitleText>
+ 
+  <div class="category">
+    <categoryTitleText class="category__title">Category: {{ this.$route.params.id }}</categoryTitleText>
+  <div class="category--404" v-if="!categorySuccessStatus">
+     <p class="category--404--title">Uh-oh...</p>
+     <p>Unfortunately, no deals were returned from your search. Why not try something 
+     <router-link tag="a" to="/random">Random</router-link> instead?</p>
+     <img src="../assets/404.svg" alt="unhappy 404 face">
+     </div>
+ 
+ <div v-else-if="isdealsPerCurrentCategoryLoading">Loading...</div>
 
-    <div class="category__desktop-wrapper--related">
+  <div v-else class="category__dealcard--wrapper">
           <categoryDealCard v-for="deal in dealsPerCurrentCategory" :key="deal.id" :dealinfo="deal"/>
         </div>
       </div>
@@ -33,14 +41,18 @@ import { Deal } from '@/store/types'
   }
 })
 export default class category extends Vue {
+   @Prop categoryName!: string
    @Getter isdealsPerCurrentCategoryLoading: boolean
    @Getter dealsPerCurrentCategory: []
+   @Getter categorySuccessStatus: boolean
 
    @Action('fetchDealsByCategory') fetchDealsByCategory: any;
+   @Action('resetCategorySuccessStatus') resetCategorySuccessStatus: any;
  
   
   created(){
     this.fetchDealsByCategory(this.$route.params.id)
+    this.resetCategorySuccessStatus();
   }
 
   handleWowCherClick(urlPath: string){
@@ -70,152 +82,34 @@ export default class category extends Vue {
   padding: 0 5%;
 }
 
-.category__desktop-wrapper--info {
+.category__dealcard--wrapper {
   width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-  @media screen and (min-width: $breakpoint-md){
-   flex-direction: row;
-   align-items: flex-start;
-  }
-}
-
-.category__informationcard {
-  width: 90%;
-  /deep/ .informationcard__innerbox {
-    padding: 0;
-  }
-  @media screen and (min-width: $breakpoint-md){
-   order: 2;
-  }
-}
-
-img {
-  width: 100%;
-  border: 1px solid $primaryDark;
-}
-
-.category__dealinformation {
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-
-  @media screen and (min-width: $breakpoint-md){
-   order: 1;
-   margin-right: 5%;
-   width: 70%;
-  }
-}
-
-.category__dealinformation__description {
-  text-align: justify;
-   @media screen and (min-width: $breakpoint-md){
-   order: 1;
-  }
-
-}
-.category__dealinformation__price {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  margin-top: 3%;
-
-   @media screen and (min-width: $breakpoint-md){
-   order: 2;
-   margin-bottom: 10%;
-  }
-
-}
-
-.category__dealinformation__price--original {
-  text-decoration: line-through;
-}
-
-.category__dealinformation__price--now {
-  font-family: $titleFont;
-  font-size: 2em;
-  font-weight: 700;
-  margin-left: 5%;
-}
-
-.category__dealinformation__small-information-card {
-  display: flex;
-  justify-content: space-between;
-
-  div {
-    width: 30%;
-    text-align: center;
-    padding: 2% 0;
-  }
-
-  p {
-    font-family: $titleFont;
-    font-weight: 700;
-    font-size: 2em;
-    margin: 0;
-  }
-
-  .category__small-information-card--infotext {
-    font-size: 0.8em;
-    font-weight: 400;
-  }
- @media screen and (min-width: $breakpoint-md){
-   order: 3;
-  }
-  
-}
-
-.category__dealinformation__purchase {
-  display: grid;
-  text-align: center;
-  padding: 5% 0;
-  grid-template-columns: repeat(1, 100%);
-  grid-template-rows: repeat(3, 25%);
-
-  @media screen and (min-width: $breakpoint-md){
-   order: 4;
-  }
-
-  .category__dealinformation__purchase__img {
-    grid-column: 1/2;
-    grid-row: 1/4;
-    img {
-      border: 0;
-      width: 50%;
-    }
-  }
-  .category__dealinformation__purchase__btn {
-    grid-column: 1/2;
-    grid-row: 2/3;
-  }
-}
-
-.category__desktop-wrapper--related {
-  @media screen and (min-width: $breakpoint-md){
-   width: 90%;
-  }
-}
-
-.category__related {
-  p {
-    margin-left: 5%;
-  }
-}
-
-.category__related__dealcards {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-left: 5%;
+  margin-top: 2%;
+}
 
-  @media screen and (min-width: $breakpoint-sm){
-      justify-content: flex-start;
+.category--404 {
+  text-align: center;
+  .category--404--title {
+    font-size: 1.5em;
+    font-weight: 600;
   }
-
-  @media screen and (max-width: 420px){
-  font-size: 1em;
+  a {
+    text-decoration: none;
+    color: $primaryDark;
+    font-weight: 600;
+    &:hover{
+      color: $primaryGrey;
+      border-bottom: 3px solid $primaryGreen;
+    }
+  }
+  img {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    padding: 7%;
   }
 }
 </style>

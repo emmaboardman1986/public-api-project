@@ -6,12 +6,90 @@ export const state: State = {
     // deals 
     deals: [],
     allAvailableLoading: true,
-    randomDeal: {},
+    randomDeal: {
+        id: 0,
+        urlPrefix: '',
+        images: [''],
+        priceText: '',
+        totalBought: 0,
+        totalRemaining: 0,
+        price: 0,
+        depositPrice: 0,
+        pricePerPerson: 0,
+        headline: '',
+        display: {
+            discountAmount: false,
+            quantity: false,
+            quantityRemaining: false,
+            endDate: false,
+            discount: false,
+            bought: false,
+            previousDeal: false,
+            deliveryAddress: false,
+            business: false,
+            timer: false,
+            flashDeal: false,
+            priceText: false,
+            lastChance: false,
+            containsProductImages: false
+        },
+        priceIndicative: false,
+        discount: 0,
+        discountPercentage: 0,
+        originalPrice: 0,
+        closingDate: 0,
+        expiryDate: 0,
+        flashDealDate: 0,
+        currency: '',
+        soldText: '',
+        title: '',
+        business: {},
+        urlPath: ''
+    },
     randomLoading: true,
     sortAsc: true,
     topTenDeals: [],
     topTenLoading: true,
-    currentDeal: {},
+    currentDeal: {
+        id: 0,
+        urlPrefix: '',
+        images: [''],
+        priceText: '',
+        totalBought: 0,
+        totalRemaining: 0,
+        price: 0,
+        depositPrice: 0,
+        pricePerPerson: 0,
+        headline: '',
+        display: {
+            discountAmount: false,
+            quantity: false,
+            quantityRemaining: false,
+            endDate: false,
+            discount: false,
+            bought: false,
+            previousDeal: false,
+            deliveryAddress: false,
+            business: false,
+            timer: false,
+            flashDeal: false,
+            priceText: false,
+            lastChance: false,
+            containsProductImages: false
+        },
+        priceIndicative: false,
+        discount: 0,
+        discountPercentage: 0,
+        originalPrice: 0,
+        closingDate: 0,
+        expiryDate: 0,
+        flashDealDate: 0,
+        currency: '',
+        soldText: '',
+        title: '',
+        business: {},
+        urlPath: ''
+    },
     isCurrentDealLoading: true,
     // categories
     categories: [],
@@ -26,7 +104,6 @@ export const state: State = {
 export const getters: GetterTree<State, any> = {
     // deals
     allAvailableDeals: state => state.deals,
-    isDealsLoading: state => state.loading,
     topTenDeals: state => state.topTenDeals,
     isTopTenLoading: state => state.topTenLoading,
     randomDeal: state => state.randomDeal,
@@ -67,32 +144,32 @@ export const mutations: MutationTree<State> = {
     changeTopTenLoadingState(state, loading) {
         state.topTenLoading = loading
     },
-    updateCurrentDeal(state, deal){
+    updateCurrentDeal(state, deal) {
         state.currentDeal = deal
     },
-    changeCurrentDealLoadingState(state, loading){
+    changeCurrentDealLoadingState(state, loading) {
         state.isCurrentDealLoading = loading
     },
     // categories 
-    updateCurrentDealCategory(state, category){
+    updateCurrentDealCategory(state, category) {
         state.currentDealCategory = category
     },
-    changeCurrentDealCategoryLoadingState(state, loading){
+    changeCurrentDealCategoryLoadingState(state, loading) {
         state.currentDealCategoryLoading = loading
     },
-    updateDealsPerCurrentCategory(state, deals){
+    updateDealsPerCurrentCategory(state, deals) {
         state.dealsPerCurrentCategory = deals
     },
-    changeDealsPerCurrentCategoryLoadingState(state, loading){
+    changeDealsPerCurrentCategoryLoadingState(state, loading) {
         state.isDealsPerCurrentCategoryLoading = loading
     },
-    updateAllAvailableCategories(state, categories){
+    updateAllAvailableCategories(state, categories) {
         state.categories = categories
     },
-    changeCategoriesLoadingState(state, loading){
+    changeCategoriesLoadingState(state, loading) {
         state.isCategoriesLoading = loading
     },
-    updateCategorySuccessStatus(state, status){
+    updateCategorySuccessStatus(state, status) {
         state.categorySuccessStatus = status
     }
 
@@ -106,7 +183,6 @@ export const actions: ActionTree<State, any> = {
         axios
             .get('https://public-api.livingsocial.co.uk/v1/deal/london')
             .then(response => {
-                console.log(response);
                 commit('updateDeals', response.data.deals)
                 commit('changeLoadingState', false)
             })
@@ -117,7 +193,6 @@ export const actions: ActionTree<State, any> = {
         axios
             .get('https://public-api.livingsocial.co.uk/v1/deal/london')
             .then(response => {
-                console.log(response);
                 commit('updateTopTen', response.data.deals.slice(0, 10))
                 commit('changeTopTenLoadingState', false)
             })
@@ -143,10 +218,10 @@ export const actions: ActionTree<State, any> = {
         }
     },
     getCurrentDeal({ commit }, dealId
-        ) {
-            let currentDeal = state.deals.find(deal => deal.id == dealId);
-            commit('updateCurrentDeal', currentDeal)
-            commit('changeCurrentDealLoadingState', false)
+    ) {
+        let currentDeal = state.deals.find(deal => deal.id == dealId);
+        commit('updateCurrentDeal', currentDeal)
+        commit('changeCurrentDealLoadingState', false)
     },
     // categories
     fetchCurrentDealCategory({
@@ -162,47 +237,65 @@ export const actions: ActionTree<State, any> = {
     },
     fetchDealsByCategory({
         commit
-    }, category){
+    }, category) {
         axios
-        .get('https://public-api.livingsocial.co.uk/v1/deal/london/' + category)
-        .then( response => {
-            console.log("deals by category:", response.data.deals)
-            commit('updateDealsPerCurrentCategory', response.data.deals)
-            commit('changeDealsPerCurrentCategoryLoadingState', false)
-        })
-        .catch((error) => {
-            if (error.response.status == 404){
-                commit('updateCategorySuccessStatus',false)
-            }
-        })
+            .get('https://public-api.livingsocial.co.uk/v1/deal/london/' + category)
+            .then(response => {
+                commit('updateDealsPerCurrentCategory', response.data.deals)
+                commit('changeDealsPerCurrentCategoryLoadingState', false)
+            })
+            .catch((error) => {
+                if (error.response.status == 404) {
+                    commit('updateCategorySuccessStatus', false)
+                }
+            })
     },
     fetchAllCategories({
         commit
-    }){
+    }) {
         axios
-        .get("https://public-api.livingsocial.co.uk/v1/category")
-        .then(response => {
-          let availableCategories = response.data.reduce(function(
-            categoriesArray: any[],
-            catObj: {}
-          ) {
+            .get("https://public-api.livingsocial.co.uk/v1/category")
+            .then(response => {
+                let availableCategories = response.data.reduce(function (
+                    categoriesArray: any[],
+                    catObj: {
+                        canonicalPathType: string
+                        dealCategories: [{
+                            canonicalPathType: string
+                            displayInFe: any
+                            id: number
+                            locations: any[]
+                        name: string
+                        position: number
+                        shortName: string
+                    }]
+                    displayInFe: string
+                        id: number
+                        name: string
+                        position: number
+                        shortName: string
+                        subCategories: any[]
+                    _score: string
+                    }
+            ) {
             let uniqueCategoriesArray: any[] = [];
             if (catObj["dealCategories"].length == 1) {
                 let newObj = {
-                  displayName: catObj["dealCategories"][0].name,
-                  urlName: catObj["dealCategories"][0].shortName
+                    displayName: catObj["dealCategories"][0].name,
+                    urlName: catObj["dealCategories"][0].shortName
                 }
                 categoriesArray.push(newObj);
-              }
+            }
             return categoriesArray;
-          },
-          []);
-          commit('updateAllAvailableCategories', availableCategories)
-          commit('changeCategoriesLoadingState', false)
-        }) ;
+        },
+        []);
+        commit('updateAllAvailableCategories', availableCategories)
+        commit('changeCategoriesLoadingState', false)
+    });
     },
-    resetCategorySuccessStatus({commit
-    }){
-        commit('updateCategorySuccessStatus',true)
-    }
+resetCategorySuccessStatus({
+    commit
+}) {
+    commit('updateCategorySuccessStatus', true)
+}
 }

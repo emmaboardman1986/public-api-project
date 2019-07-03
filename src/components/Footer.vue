@@ -1,11 +1,11 @@
 <template>
   <footer>
-     <router-link tag="p" to="sitemap">SiteMap</router-link>
+    <router-link tag="p" to="sitemap">SiteMap</router-link>
   </footer>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class Footer extends Vue {
@@ -19,13 +19,14 @@ footer {
   background-color: $primaryGrey;
   height: 100%;
   padding: 2%;
-}
-p {
+
+  p {
   font-family: $subTitleFont;
   color: $primaryLight;
   text-align: left;
   margin: 0;
   margin-left: 2%;
   font-size: 0.9em;
+}
 }
 </style>

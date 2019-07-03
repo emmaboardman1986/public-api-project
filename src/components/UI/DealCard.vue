@@ -27,8 +27,6 @@ export default class DealCard extends Vue {
 <style lang="scss" scoped>
 
 .dealcard {
-  // width: 100%;
-
    @media screen and (min-width: $breakpoint-sm){
       margin-right: 5%;
   }

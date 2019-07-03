@@ -16,9 +16,13 @@
           >WowCher</span> to purchase your random deal, OR, click below to generator some random and hopefully enticing photos of your random deal will appear <u>underneath the button</u> (scroll if you can't see it).
         </p>
         <p>Note: If the present deal has only one associated image, it won't be particularly random.</p>
-        <span v-if="randomDeal.images.length >= 2">Lucky!</span><span v-else>Unlucky!</span> Your present deal has
-        <span v-if="randomDeal.images.length >= 2"></span><span v-else>only</span> 
-         {{ randomDeal.images.length}} image<span v-if="randomDeal.images.length >= 2">s</span> <span v-if="randomDeal.images.length >= 2">:)</span><span v-else>:(</span></p>
+        <span v-if="randomDeal.images.length >= 2">Lucky!</span>
+        <span v-else>Unlucky!</span> Your present deal has
+        <span v-if="randomDeal.images.length >= 2"></span>
+        <span v-else>only</span> 
+         {{ randomDeal.images.length}} image
+         <span v-if="randomDeal.images.length >= 2">s</span>
+          <span v-if="randomDeal.images.length >= 2">:)</span><span v-else>:(</span>
       
         <RandomCTAButton
           @click.native="getRandomImage"
@@ -53,8 +57,8 @@ export default class Random extends Vue {
   randomImageNum: number = 0;
   isRandomImageNumLoaded: boolean = false;
 
-  @Getter randomDeal: Deal;
-  @Getter isRandomDealLoading: boolean;
+  @Getter randomDeal!: Deal;
+  @Getter isRandomDealLoading!: boolean;
 
    @Action('getRandomDeal') getRandomDeal: any;
 

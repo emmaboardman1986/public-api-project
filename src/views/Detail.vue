@@ -71,13 +71,13 @@ import { Deal } from '@/store/types'
   }
 })
 export default class Detail extends Vue {
-   @Getter isDealsLoading: boolean
-   @Getter currentDeal: Deal
-   @Getter isCurrentDealLoading: boolean
-   @Getter currentDealCategory: string
-   @Getter relatedDeals: Deal[]
-   @Getter isDealsPerCurrentCategoryLoading: boolean
-   @Getter dealsPerCurrentCategory: []
+   @Getter isDealsLoading!: boolean
+   @Getter currentDeal!: Deal
+   @Getter isCurrentDealLoading!: boolean
+   @Getter currentDealCategory!: string
+   @Getter relatedDeals!: Deal[]
+   @Getter isDealsPerCurrentCategoryLoading!: boolean
+   @Getter dealsPerCurrentCategory!: []
 
    @Action('getCurrentDeal') getCurrentDeal: any;
    @Action('fetchCurrentDealCategory') fetchCurrentDealCategory: any;

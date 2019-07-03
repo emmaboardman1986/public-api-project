@@ -70,9 +70,8 @@ import { Deal } from '@/store/types'
 })
 export default class Home extends Vue {
   sortPriceAsc: boolean = true;
-  @Getter topTenDeals: any[];
-  @Getter isTopTenLoading: boolean;
-  @Getter sortedDeals: Deal[];
+  @Getter topTenDeals!: any[];
+  @Getter isTopTenLoading!: boolean;
 
   @Action('loadTopTenDeals') loadTopTenDeals: any;
   @Action('sortDeals') sortDeals: any;

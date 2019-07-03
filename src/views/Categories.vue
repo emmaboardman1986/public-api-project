@@ -32,8 +32,8 @@ import { Deal } from '@/store/types'
   }
 })
 export default class Categories extends Vue {
-   @Getter allCategories: []
-   @Getter isCategoriesLoading: boolean;
+   @Getter allCategories!: [];
+   @Getter isCategoriesLoading!: boolean;
 
    @Action('fetchAllCategories') fetchAllCategories: any
 

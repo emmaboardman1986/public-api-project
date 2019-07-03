@@ -25,7 +25,7 @@ import router from '../router'
 })
 export default class SiteMap extends Vue {
 siteMap: any = ''
-getRoutesList(routes, pre) {
+getRoutesList(routes: any[], pre: string) {
   return routes.reduce((array, route) => {
     const path = `${pre}${route.path}`;
 
@@ -34,7 +34,7 @@ getRoutesList(routes, pre) {
     }
 
     if (route.children) {
-      array.push(...getRoutesList(route.children, `${path}/`));
+      array.push(...this.getRoutesList(route.children, `${path}/`));
     }
 
     return array;
@@ -51,6 +51,7 @@ getRoutesXML() {
 }
 
 created() {
+    console.log(router)
     this.getRoutesXML();
 }
 }

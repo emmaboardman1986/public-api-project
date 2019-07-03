@@ -31,10 +31,9 @@ import { Deal } from '@/store/types'
   }
 })
 export default class category extends Vue {
-   @Prop categoryName!: string
-   @Getter isdealsPerCurrentCategoryLoading: boolean
-   @Getter dealsPerCurrentCategory: []
-   @Getter categorySuccessStatus: boolean
+   @Getter isdealsPerCurrentCategoryLoading!: boolean
+   @Getter dealsPerCurrentCategory!: []
+   @Getter categorySuccessStatus!: boolean
 
    @Action('fetchDealsByCategory') fetchDealsByCategory: any;
    @Action('resetCategorySuccessStatus') resetCategorySuccessStatus: any;

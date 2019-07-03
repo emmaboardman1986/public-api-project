@@ -33,41 +33,7 @@ export default class Home extends Vue {
 
   created() {
     this.loadAllAvailableDeals();
-
   }
-
-  fetchAllCategories() {
-    axios
-      .get("https://public-api.livingsocial.co.uk/v1/category")
-      .then(response => {
-        this.allAvailableCategories = response.data.reduce(function(
-          categoriesArray: any[],
-          catObj: {}
-        ) {
-          let uniqueCategoriesArray: any[] = [];
-          if (catObj["dealCategories"].length == 1) {
-              let newObj = {
-                displayName: catObj["dealCategories"][0].name,
-                urlName: catObj["dealCategories"][0].shortName
-              }
-              categoriesArray.push(newObj);
-            }
-          return categoriesArray;
-        },
-        []);
-      });
-  }
-
-  fetchRelatedDeals(category: string) {
-    let url =
-      "https://public-api.livingsocial.co.uk/v1/deal/london/" + category;
-    axios.get(url).then(response => {
-      console.log(response);
-      this.relatedDeals = response.data.deals.slice(0, 3);
-    });
-  }
-
-  
 }
 </script>
 

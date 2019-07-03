@@ -10,9 +10,11 @@ export interface State {
     currentDeal: Deal,
     isCurrentDealLoading: boolean,
     categories: any,
+    isCategoriesLoading: boolean,
     currentDealCategory: string,
     currentDealCategoryLoading: boolean,
-    dealsPerCurrentCategory: Deal[]
+    dealsPerCurrentCategory: Deal[],
+    isDealsPerCurrentCategoryLoading: boolean
 }
 
 export interface Deal {

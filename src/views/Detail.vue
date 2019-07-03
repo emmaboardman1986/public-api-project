@@ -38,8 +38,8 @@
       <div class="detail__related">
         <DetailTitleText v-titleSizeDirective="'0.8em'" class="detail__title">Related Deals</DetailTitleText>
         <p>Other deals from the same category</p>
-
-        <div class="detail__related__dealcards">
+        <div v-if="isdealsPerCurrentCategoryLoading">Loading...</div>
+        <div v-else class="detail__related__dealcards">
           <DetailDealCard v-for="deal in relatedDeals" :key="deal.id" :dealinfo="deal"/>
         </div>
       </div>
@@ -75,6 +75,7 @@ export default class Detail extends Vue {
    @Getter isCurrentDealLoading: boolean
    @Getter currentDealCategory: string
    @Getter relatedDeals: Deal[]
+   @Getter isdealsPerCurrentCategoryLoading: boolean
    @Getter dealsPerCurrentCategory: []
 
    @Action('getCurrentDeal') getCurrentDeal: any;

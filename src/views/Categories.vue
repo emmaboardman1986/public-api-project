@@ -4,8 +4,14 @@
     <CategoriesInformationCard class="categories__info-card">
       <p>Find a deal by Category</p>
     </CategoriesInformationCard>
-    <div class="categories__small-info-cards">
-      <CategoriesSmallInformationCard class="categories__small-info-card" v-for="category in allAvailableCategories" :key="category.shortName">{{ category.displayName }}</CategoriesSmallInformationCard>
+    <div v-if="isCategoriesLoading">Loading...</div>
+    <div v-else class="categories__small-info-cards">
+        <router-link tag="a" class="categories__small-info-card--link" :to="{name: 'category', params: { id: 'entertainment'  }}">
+      <CategoriesSmallInformationCard class="categories__small-info-card" v-for="category in allCategories" :key="category.shortName">
+      
+        {{ category.displayName }}
+        </CategoriesSmallInformationCard>
+        </router-link>
     </div>
   </div>
 </template>
@@ -15,6 +21,8 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import CategoriesTitleText from "@/components/UI/TitleText.vue";
 import CategoriesInformationCard from "@/components/UI/InformationCard.vue";
 import CategoriesSmallInformationCard from "@/components/UI/SmallInformationCard.vue";
+import { Getter, Mutation, Action } from 'vuex-class'
+import { Deal } from '@/store/types'
 
 @Component({
   components: {
@@ -24,11 +32,14 @@ import CategoriesSmallInformationCard from "@/components/UI/SmallInformationCard
   }
 })
 export default class Categories extends Vue {
-   @Prop() allAvailableCategories!: any[];
+   @Getter allCategories: []
+   @Getter isCategoriesLoading: boolean;
 
-   get uniqueCategories() {
-     return [...new Set(this.allAvailableCategories.map(p => p.category))]
-   }
+   @Action('fetchAllCategories') fetchAllCategories: any
+
+    created(){
+      this.fetchAllCategories();
+    }
 }
 </script>
 

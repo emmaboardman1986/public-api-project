@@ -15,9 +15,11 @@ export const state: State = {
     isCurrentDealLoading: true,
     // categories
     categories: [],
+    isCategoriesLoading: true,
     currentDealCategory: '',
     currentDealCategoryLoading: true,
-    dealsPerCurrentCategory: []
+    dealsPerCurrentCategory: [],
+    isDealsPerCurrentCategoryLoading: true
 }
 
 export const getters: GetterTree<State, any> = {
@@ -32,9 +34,10 @@ export const getters: GetterTree<State, any> = {
     isCurrentDealLoading: state => state.isCurrentDealLoading,
     // categories 
     allCategories: state => state.categories,
+    isCategoriesLoading: state => state.isCategoriesLoading,
     currentDealCategory: state => state.currentDealCategory,
     relatedDeals: state => state.dealsPerCurrentCategory.slice(0, 3),
-    dealsPerCurrentCategory: state => state.dealsPerCurrentCategory
+    isdealsPerCurrentCategoryLoading: state => state.isDealsPerCurrentCategoryLoading
 }
 
 export const mutations: MutationTree<State> = {
@@ -67,12 +70,6 @@ export const mutations: MutationTree<State> = {
         state.isCurrentDealLoading = loading
     },
     // categories 
-    updateCategories(state, categories) {
-        state.categories = categories
-    },
-    changeCategoryLoadingState(state, loading) {
-        state.loading = loading
-    },
     updateCurrentDealCategory(state, category){
         state.currentDealCategory = category
     },
@@ -81,6 +78,15 @@ export const mutations: MutationTree<State> = {
     },
     updateDealsPerCurrentCategory(state, deals){
         state.dealsPerCurrentCategory = deals
+    },
+    changeDealsPerCurrentCategoryLoadingState(state, loading){
+        state.isDealsPerCurrentCategoryLoading = loading
+    },
+    updateAllAvailableCategories(state, categories){
+        state.categories = categories
+    },
+    changeCategoriesLoadingState(state, loading){
+        state.isCategoriesLoading = loading
     }
 
 }
@@ -143,7 +149,7 @@ export const actions: ActionTree<State, any> = {
             .get('https://public-api.livingsocial.co.uk/v1/deal/' + dealId)
             .then(response => {
                 console.log("full deal data: ", response);
-                commit('updateCurrentDealCategory', response.data.category.shortName)
+                commit('updateCurrentDealCategory', response.data.category.id)
                 commit('changeCurrentDealCategoryLoadingState', false)
             })
     },
@@ -155,6 +161,32 @@ export const actions: ActionTree<State, any> = {
         .then( response => {
             console.log("deals by category:", response.data.deals)
             commit('updateDealsPerCurrentCategory', response.data.deals)
+            commit('changeDealsPerCurrentCategoryLoadingState', false)
         })
+    },
+    fetchAllCategories({
+        commit
+    }){
+        axios
+        .get("https://public-api.livingsocial.co.uk/v1/category")
+        .then(response => {
+          let availableCategories = response.data.reduce(function(
+            categoriesArray: any[],
+            catObj: {}
+          ) {
+            let uniqueCategoriesArray: any[] = [];
+            if (catObj["dealCategories"].length == 1) {
+                let newObj = {
+                  displayName: catObj["dealCategories"][0].name,
+                  urlName: catObj["dealCategories"][0].shortName
+                }
+                categoriesArray.push(newObj);
+              }
+            return categoriesArray;
+          },
+          []);
+          commit('updateAllAvailableCategories', availableCategories)
+          commit('changeCategoriesLoadingState', false)
+        });
     }
 }

@@ -16,34 +16,28 @@ export default new Router({
     {
       path: '/detail/:id',
       name: 'detail',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Detail.vue')
+      component: () => import('./views/Detail.vue')
     },
     {
       path: '/categories',
       name: 'categories',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Categories.vue')
+      component: () => import('./views/Categories.vue')
     },
     {
       path: '/category/:id',
       name: 'category',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Category.vue')
+      component: () => import('./views/Category.vue')
     },
     {
       path: '/random',
       name: 'random',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Random.vue')
+      component: () => import('./views/Random.vue')
+    },
+    {
+      path: '/sitemap',
+      name: 'sitemap',
+      component: () => import('./views/SiteMap.vue')
     }
-  ]
+  ],
 })
+

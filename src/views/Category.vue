@@ -20,24 +20,14 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import categoryTitleText from "@/components/UI/TitleText.vue";
-import categoryInformationCard from "@/components/UI/InformationCard.vue";
-import categorySmallInformationCard from "@/components/UI/SmallInformationCard.vue";
-import categoryCTAButton from "@/components/UI/CTAButton.vue";
 import categoryDealCard from "@/components/UI/DealCard.vue";
-import titleSizeDirective from "@/directives/titlesize-directive";
 import { Getter, Mutation, Action } from 'vuex-class'
 import { Deal } from '@/store/types'
 
 @Component({
   components: {
     categoryTitleText,
-    categoryInformationCard,
-    categorySmallInformationCard,
-    categoryCTAButton,
     categoryDealCard
-  },
-  directives: {
-    titleSizeDirective
   }
 })
 export default class category extends Vue {

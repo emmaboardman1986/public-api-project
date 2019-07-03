@@ -50,7 +50,7 @@ export const mutations: MutationTree<State> = {
         state.deals = deals
     },
     changeLoadingState(state, loading) {
-        state.loading = loading
+        state.allAvailableLoading = loading
     },
     updateRandomDeal(state, randomDeal) {
         state.randomDeal = randomDeal

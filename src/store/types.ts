@@ -15,7 +15,8 @@ export interface State {
     currentDealCategoryLoading: boolean,
     dealsPerCurrentCategory: Deal[],
     isDealsPerCurrentCategoryLoading: boolean,
-    categorySuccessStatus: boolean
+    categorySuccessStatus: boolean,
+    isDealsLoading: boolean
 }
 
 export interface Deal {

@@ -71,7 +71,8 @@ import { Deal } from '@/store/types'
   }
 })
 export default class Detail extends Vue {
-   @Getter currentDeal: Deal;
+   @Getter isDealsLoading: boolean
+   @Getter currentDeal: Deal
    @Getter isCurrentDealLoading: boolean
    @Getter currentDealCategory: string
    @Getter relatedDeals: Deal[]
@@ -83,8 +84,7 @@ export default class Detail extends Vue {
    @Action('fetchDealsByCategory') fetchDealsByCategory: any;
    @Action('loadAllAvailableDeals') loadAllAvailableDeals: any;
   
-  created(){
-    this.loadAllAvailableDeals();
+  async created(){
     this.getCurrentDeal(this.$route.params.id);
     this.fetchCurrentDealCategory(this.$route.params.id);
   }

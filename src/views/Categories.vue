@@ -50,7 +50,6 @@ export default class Categories extends Vue {
   flex-direction: column;
   align-items: center;
   text-align: left;
-  height: 86vh;
 
   @media screen and (min-width: $breakpoint-md) {
     margin-top: $headerHeight;

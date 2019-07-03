@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <p>SiteMap</p>
+     <router-link tag="p" to="sitemap">SiteMap</router-link>
   </footer>
 </template>
 

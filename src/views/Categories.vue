@@ -6,10 +6,11 @@
     </CategoriesInformationCard>
     <div v-if="isCategoriesLoading">Loading...</div>
     <div v-else class="categories__small-info-cards">
-        <router-link tag="a" class="categories__small-info-card--link" :to="{name: 'category', params: { id: 'entertainment'  }}">
-      <CategoriesSmallInformationCard class="categories__small-info-card" v-for="category in allCategories" :key="category.shortName">
-      
+       
+      <CategoriesSmallInformationCard class="categories__small-info-card" v-for="category in allCategories" :key="category.urlName">
+       <router-link tag="a" class="categories__small-info-card--link" :to="{name: 'category', params: { id: category.urlName  }}">
         {{ category.displayName }}
+       </router-link>
         </CategoriesSmallInformationCard>
         </router-link>
     </div>

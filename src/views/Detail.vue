@@ -1,7 +1,8 @@
 <template>
   <div class="detail">
     <DetailTitleText class="detail__title">{{ currentDeal.headline }}</DetailTitleText>
-    <div class="detail__desktop-wrapper--info">
+    <div v-if="isCurrentDealLoading">Loading...</div>
+    <div v-else class="detail__desktop-wrapper--info">
     <DetailInformationCard class="detail__informationcard">
       <img :src="currentDeal.images[0].imageUrl + '.jpg'" alt="image representing deal" />
     </DetailInformationCard>
@@ -37,6 +38,7 @@
       <div class="detail__related">
         <DetailTitleText v-titleSizeDirective="'0.8em'" class="detail__title">Related Deals</DetailTitleText>
         <p>Other deals from the same category</p>
+
         <div class="detail__related__dealcards">
           <DetailDealCard v-for="deal in relatedDeals" :key="deal.id" :dealinfo="deal"/>
         </div>
@@ -53,6 +55,8 @@ import DetailSmallInformationCard from "@/components/UI/SmallInformationCard.vue
 import DetailCTAButton from "@/components/UI/CTAButton.vue";
 import DetailDealCard from "@/components/UI/DealCard.vue";
 import titleSizeDirective from "@/directives/titlesize-directive";
+import { Getter, Mutation, Action } from 'vuex-class'
+import { Deal } from '@/store/types'
 
 @Component({
   components: {
@@ -67,17 +71,27 @@ import titleSizeDirective from "@/directives/titlesize-directive";
   }
 })
 export default class Detail extends Vue {
-   @Prop() currentDeal!: {}
-   @Prop() relatedDeals!: [] 
+   @Getter currentDeal: Deal;
+   @Getter isCurrentDealLoading: boolean
+   @Getter currentDealCategory: string
+   @Getter relatedDeals: Deal[]
+   @Getter dealsPerCurrentCategory: []
+
+   @Action('getCurrentDeal') getCurrentDeal: any;
+   @Action('fetchCurrentDealCategory') fetchCurrentDealCategory: any;
+   @Action('fetchDealsByCategory') fetchDealsByCategory: any;
+   @Action('loadAllAvailableDeals') loadAllAvailableDeals: any;
   
   created(){
-    this.fetchDealData();
+    this.loadAllAvailableDeals();
+    this.getCurrentDeal(this.$route.params.id);
+    this.fetchCurrentDealCategory(this.$route.params.id);
   }
 
-  fetchDealData(){
-    this.$emit('getCurrentDeal', this.$route.params.id);
+  mounted() {
+    this.fetchDealsByCategory(this.currentDealCategory);
   }
-
+  
   handleWowCherClick(urlPath: string){
     let url = "http://wowcher.co.uk" + urlPath;
     window.open(url);
@@ -233,24 +247,24 @@ img {
   }
 }
 
+.detail__related {
+  p {
+    margin-left: 5%;
+  }
+}
+
 .detail__related__dealcards {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  div {
-    width: 45%;
-    /deep/ p {
-      font-size: 1.5em;
- @media screen and (max-width: 420px){
-   font-size: 1.35em;
+  justify-content: space-around;
+  margin-left: 5%;
+
+  @media screen and (min-width: $breakpoint-sm){
+      justify-content: flex-start;
   }
 
-    }
-  @media screen and (min-width: $breakpoint-md){
-   width: 30%;
-  }
-
-  
+  @media screen and (max-width: 420px){
+  font-size: 1em;
   }
 }
 </style>

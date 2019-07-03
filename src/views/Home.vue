@@ -34,10 +34,10 @@
         </div>
       </div>
       <div class="home__content__sort">
-        <p @click="$emit('handlePriceSort')">Sort by price ▼</p>
+        <p @click="handlePriceSort">Sort by price ▼</p>
       </div>
       <div class="home__content__desktop-wrapper--dealcards">
-        <div v-if="!isDataLoaded"><p>loading...</p></div>
+        <div v-if="isTopTenLoading"><p>loading...</p></div>
         <HomeDealCard v-else v-for="deal in topTenDeals" :key="deal.id" :dealinfo="deal"/>
       </div>
     </div>
@@ -52,6 +52,9 @@ import HomeInformationCard from "@/components/UI/InformationCard.vue";
 import HomeCTABtn from "@/components/UI/CTAButton.vue";
 import HomeDealCard from "@/components/UI/DealCard.vue";
 import titleSizeDirective from "@/directives/titlesize-directive";
+import { Getter, Mutation, Action } from 'vuex-class'
+import { Deal } from '@/store/types'
+
 
 @Component({
   components: {
@@ -66,8 +69,21 @@ import titleSizeDirective from "@/directives/titlesize-directive";
   }
 })
 export default class Home extends Vue {
-  @Prop() isDataLoaded!: boolean
-  @Prop() topTenDeals!: []
+  sortPriceAsc: boolean = true;
+  @Getter topTenDeals: any[];
+  @Getter isTopTenLoading: boolean;
+  @Getter sortedDeals: Deal[];
+
+  @Action('loadTopTenDeals') loadTopTenDeals: any;
+  @Action('sortDeals') sortDeals: any;
+
+
+  created(){
+    this.loadTopTenDeals();
+  }
+  handlePriceSort() {
+    this.sortDeals();
+  }
 }
 
 </script>

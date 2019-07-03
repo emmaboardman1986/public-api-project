@@ -1,7 +1,8 @@
 <template>
   <div class="random">
     <RandomTitleText class="random__title">Random Deal Generator</RandomTitleText>
-    <div class="random__dealinformation">
+    <div v-if="isRandomLoading">Loading...</div>
+    <div v-else class="random__dealinformation">
       <RandomInformationCard class="random__info-card">
         <p>Your random deal is:</p>
         <p class="random__info-card--title">{{ randomDeal.headline }}</p>
@@ -32,6 +33,8 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import RandomTitleText from "@/components/UI/TitleText.vue";
 import RandomInformationCard from "@/components/UI/InformationCard.vue";
 import RandomCTAButton from "@/components/UI/CTAButton.vue";
+import { Getter, Mutation, Action } from 'vuex-class'
+import { Deal } from '@/store/types'
 
 @Component({
   components: {
@@ -41,13 +44,17 @@ import RandomCTAButton from "@/components/UI/CTAButton.vue";
   }
 })
 export default class Random extends Vue {
-  @Prop() randomDeal!: {};
+  @Getter randomDeal: Deal;
+  @Getter isRandomDealLoading: boolean;
+
+   @Action('getRandomDeal') getRandomDeal: any;
 
   randomImage: string = "";
 
 
   created() {
     this.$emit("handleRandomDeal");
+    this.getRandomDeal();
   }
 
   handleWowCherClick(urlPath: string) {

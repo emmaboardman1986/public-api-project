@@ -1,6 +1,8 @@
 <template>
   <div class="detail">
-    <DetailTitleText class="detail__title">{{ currentDeal.headline }}</DetailTitleText>
+    <div v-if="isCurrentDealLoading">Deal Info is Loading...</div>
+    <div v-else>{{ currentDeal.pageTitle }}</div>
+    <!-- <DetailTitleText class="detail__title">{{ currentDeal.headline }}</DetailTitleText>
     <div v-if="isCurrentDealLoading">Loading...</div>
     <div v-else class="detail__desktop-wrapper--info">
       <DetailInformationCard class="detail__informationcard">
@@ -58,7 +60,8 @@
           <DetailDealCard v-for="deal in relatedDeals" :key="deal.id" :dealinfo="deal" />
         </div>
       </div>
-    </div>
+    </div> -->
+  </div>
   </div>
 </template>
 
@@ -86,7 +89,6 @@ import { Deal } from '@/store/types'
   }
 })
 export default class Detail extends Vue {
-  @Getter isDealsLoading!: boolean
   @Getter currentDeal!: Deal
   @Getter isCurrentDealLoading!: boolean
   @Getter currentDealCategory!: string
@@ -103,12 +105,12 @@ export default class Detail extends Vue {
 
   created () {
     this.getCurrentDeal(this.$route.params.id)
-    this.fetchCurrentDealCategory(this.$route.params.id)
+    // this.fetchCurrentDealCategory(this.$route.params.id)
   }
 
   mounted () {
-    this.fetchDealsByCategory(this.currentDealCategory)
-    this.resetCategorySuccessStatus()
+    // this.fetchDealsByCategory(this.currentDealCategory)
+    // this.resetCategorySuccessStatus()
   }
 
   handleWowCherClick (urlPath: string) {

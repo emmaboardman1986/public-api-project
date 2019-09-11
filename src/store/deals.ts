@@ -219,9 +219,14 @@ export const actions: ActionTree<State, any> = {
   },
   getCurrentDeal ({ commit }, dealId
   ) {
+    axios
+    .get('https://public-api.livingsocial.co.uk/v1/deal/' + dealId)
+    .then(response => {
+        commit('updateCurrentDeal', response.data)
+        commit('changeCurrentDealLoadingState', false)
+    })
     let currentDeal = state.deals.find(deal => deal.id === dealId)
-    commit('updateCurrentDeal', currentDeal)
-    commit('changeCurrentDealLoadingState', false)
+    
   },
   // categories
   fetchCurrentDealCategory ({
@@ -230,7 +235,6 @@ export const actions: ActionTree<State, any> = {
     axios
       .get('https://public-api.livingsocial.co.uk/v1/deal/' + dealId)
       .then(response => {
-        console.log('full deal data: ', response)
         commit('updateCurrentDealCategory', response.data.category.shortName)
         commit('changeCurrentDealCategoryLoadingState', false)
       })

@@ -4,7 +4,7 @@
     <app-page-background>
       <router-view />
     </app-page-background>
-    <app-footer title="I AM A FOOTER" />
+    <app-footer/>
   </div>
 </template>
 

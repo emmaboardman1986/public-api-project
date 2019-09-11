@@ -44,7 +44,16 @@ export const state: State = {
         soldText: '',
         title: '',
         business: {},
-        urlPath: ''
+        urlPath: '',
+        category: {
+            id: 0,
+            name: '',
+            shortName: '',
+            position: 0,
+            canonicalPathType: '',
+            displayInFe: null,
+            locations: []
+        }
     },
     randomLoading: true,
     sortAsc: true,
@@ -88,7 +97,16 @@ export const state: State = {
         soldText: '',
         title: '',
         business: {},
-        urlPath: ''
+        urlPath: '',
+        category: {
+            id: 0,
+            name: '',
+            shortName: '',
+            position: 0,
+            canonicalPathType: '',
+            displayInFe: null,
+            locations: []
+        }
     },
     isCurrentDealLoading: true,
     // categories
@@ -118,7 +136,6 @@ export const getters: GetterTree<State, any> = {
     isDealsPerCurrentCategoryLoading: state => state.isDealsPerCurrentCategoryLoading,
     categorySuccessStatus: state => state.categorySuccessStatus,
     dealsPerCurrentCategory: state => state.dealsPerCurrentCategory
-
 }
 
 export const mutations: MutationTree<State> = {
@@ -217,27 +234,21 @@ export const actions: ActionTree<State, any> = {
       commit('updateTopTen', updatedState)
     }
   },
-  getCurrentDeal ({ commit }, dealId
+  getCurrentDeal ({ commit, dispatch }, dealId
   ) {
-    let currentDeal = state.deals.find(deal => deal.id === dealId)
-    commit('updateCurrentDeal', currentDeal)
-    commit('changeCurrentDealLoadingState', false)
+    axios
+    .get('https://public-api.livingsocial.co.uk/v1/deal/' + dealId)
+    .then(response => {
+        commit('updateCurrentDeal', response.data)
+        commit('changeCurrentDealLoadingState', false)
+        dispatch('fetchDealsByCategory', response.data.category.shortName)
+    })     
   },
   // categories
-  fetchCurrentDealCategory ({
-        commit
-  }, dealId) {
-    axios
-      .get('https://public-api.livingsocial.co.uk/v1/deal/' + dealId)
-      .then(response => {
-        console.log('full deal data: ', response)
-        commit('updateCurrentDealCategory', response.data.category.shortName)
-        commit('changeCurrentDealCategoryLoadingState', false)
-      })
-  },
     fetchDealsByCategory ({
     commit
   }, category) {
+      console.log("dispatched category", category)
     axios
       .get('https://public-api.livingsocial.co.uk/v1/deal/london/' + category)
       .then(response => {

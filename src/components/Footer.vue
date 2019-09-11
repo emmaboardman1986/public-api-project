@@ -1,16 +1,13 @@
 <template>
   <footer>
-    <router-link tag="p" to="sitemap">SiteMap</router-link>
   </footer>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class Footer extends Vue {
-  @Prop() private title!: string;
-}
+export default class Footer extends Vue {}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -21,12 +18,12 @@ footer {
   padding: 2%;
 
   p {
-  font-family: $subTitleFont;
-  color: $primaryLight;
-  text-align: left;
-  margin: 0;
-  margin-left: 2%;
-  font-size: 0.9em;
-}
+    font-family: $subTitleFont;
+    color: $primaryLight;
+    text-align: left;
+    margin: 0;
+    margin-left: 2%;
+    font-size: 0.9em;
+  }
 }
 </style>

@@ -32,11 +32,6 @@ export default new Router({
       path: '/random',
       name: 'random',
       component: () => import('./views/Random.vue')
-    },
-    {
-      path: '/sitemap',
-      name: 'sitemap',
-      component: () => import('./views/SiteMap.vue')
     }
   ],
     scrollBehavior () {

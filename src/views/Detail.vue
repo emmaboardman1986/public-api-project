@@ -1,61 +1,62 @@
 <template>
-  <div class="detail">
-    <DetailTitleText class="detail__title">{{ currentDeal.headline }}</DetailTitleText>
-    <div v-if="isCurrentDealLoading">Loading...</div>
-    <div v-else class="detail__desktop-wrapper--info">
-      <DetailInformationCard class="detail__informationcard">
-        <img :src="currentDeal.images[0].imageUrl + '.jpg'" :alt="currentDeal.images[0].alt" />
-      </DetailInformationCard>
-      <div class="detail__dealinformation">
-        <div class="detail__dealinformation__price">
-          <span class="detail__dealinformation__price--original">£{{ currentDeal.originalPrice}}</span>
-          <div class="detail__dealinformation__price--now">£{{ currentDeal.price }}</div>
-        </div>
-        <div class="detail__dealinformation__description">
-          <p>{{ currentDeal.title}}</p>
-        </div>
-        <div class="detail__dealinformation__small-information-card">
-          <DetailSmallInformationCard>
-            <p>{{ currentDeal.discountPercentage }}%</p>
-            <p class="detail__small-information-card--infotext">discount</p>
-          </DetailSmallInformationCard>
-          <DetailSmallInformationCard>
-            <p>{{ currentDeal.totalBought }}</p>
-            <p class="detail__small-information-card--infotext">tickets sold</p>
-          </DetailSmallInformationCard>
-          <DetailSmallInformationCard>
-            <p>{{ currentDeal.totalRemaining}}</p>
-            <p class="detail__small-information-card--infotext">tickets left</p>
-          </DetailSmallInformationCard>
-        </div>
-        <div class="detail__dealinformation__purchase">
-          <div class="detail__dealinformation__purchase__img">
-            <img src="@/assets/explosion.svg" />
+  <div>
+    <div class="detail__loading" v-if="isCurrentDealLoading">Deal is Loading...</div>
+    <div class="detail" v-else>
+      <DetailTitleText class="detail__title">{{ currentDeal.pageTitle }}</DetailTitleText>
+      <div class="detail__desktop-wrapper--info">
+        <DetailInformationCard class="detail__informationcard">
+          <img :src="currentDeal.images[0].imageUrl + '.jpg'" :alt="currentDeal.images[0].alt" />
+        </DetailInformationCard>
+        <div class="detail__dealinformation">
+          <div class="detail__dealinformation__price">
+            <span class="detail__dealinformation__price--original">£{{ currentDeal.originalPrice}}</span>
+            <div class="detail__dealinformation__price--now">£{{ currentDeal.price }}</div>
           </div>
-          <DetailCTAButton
-            text="Purchase Deal From WowCher"
-            class="detail__dealinformation__purchase__btn"
-            @click.native="handleWowCherClick(currentDeal.urlPath)"
-          ></DetailCTAButton>
+          <div class="detail__dealinformation__description">
+            <p>{{ currentDeal.title}}</p>
+          </div>
+          <div class="detail__dealinformation__small-information-card">
+            <DetailSmallInformationCard>
+              <p>{{ currentDeal.discountPercentage }}%</p>
+              <p class="detail__small-information-card--infotext">discount</p>
+            </DetailSmallInformationCard>
+            <DetailSmallInformationCard>
+              <p>{{ currentDeal.totalBought }}</p>
+              <p class="detail__small-information-card--infotext">tickets sold</p>
+            </DetailSmallInformationCard>
+            <DetailSmallInformationCard>
+              <p>{{ currentDeal.totalRemaining}}</p>
+              <p class="detail__small-information-card--infotext">tickets left</p>
+            </DetailSmallInformationCard>
+          </div>
+          <div class="detail__dealinformation__purchase">
+            <div class="detail__dealinformation__purchase__img">
+              <img src="@/assets/explosion.svg" />
+            </div>
+            <DetailCTAButton
+              text="Purchase Deal From WowCher"
+              class="detail__dealinformation__purchase__btn"
+              @click.native="handleWowCherClick(currentDeal.urlPath)"
+            ></DetailCTAButton>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="detail__desktop-wrapper--related">
-      <div class="detail__related">
-        <DetailTitleText v-titleSizeDirective="'0.8em'" class="detail__title">Related Deals</DetailTitleText>
-        <p>Other deals from the same category</p>
-
-        <div class="detail--404" v-if="!categorySuccessStatus">
-          <p>Unfortunately, there are no deals currently in the same category.</p>
-          <p>
-            Why not try something
-            <router-link tag="a" to="/random">Random</router-link> instead?
-          </p>
-        </div>
-
-        <div v-else-if="isDealsPerCurrentCategoryLoading">Loading...</div>
-        <div v-else class="detail__related__dealcards">
-          <DetailDealCard v-for="deal in relatedDeals" :key="deal.id" :dealinfo="deal" />
+      <div class="detail__desktop-wrapper--related">
+        <div class="detail__related">
+          <DetailTitleText v-titleSizeDirective="'0.8em'" class="detail__title">Related Deals</DetailTitleText>
+          <div v-if="isDealsPerCurrentCategoryLoading">Loading deals from the same category...</div>
+          <div v-else class="detail_related--message">
+          <div class="detail--404" v-if="!categorySuccessStatus">
+            <p>Unfortunately, there are no deals currently in the same category.</p>
+            <p>
+              Why not try something
+              <router-link tag="a" to="/random">Random</router-link> instead?
+            </p>
+          </div>
+          <div v-else class="detail__related__dealcards">
+            <DetailDealCard v-for="deal in relatedDeals" :key="deal.id" :dealinfo="deal" />
+          </div>
+          </div>
         </div>
       </div>
     </div>
@@ -63,15 +64,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import DetailTitleText from '@/components/UI/TitleText.vue'
-import DetailInformationCard from '@/components/UI/InformationCard.vue'
-import DetailSmallInformationCard from '@/components/UI/SmallInformationCard.vue'
-import DetailCTAButton from '@/components/UI/CTAButton.vue'
-import DetailDealCard from '@/components/UI/DealCard.vue'
-import titleSizeDirective from '@/directives/titlesize-directive'
-import { Getter, Mutation, Action } from 'vuex-class'
-import { Deal } from '@/store/types'
+import { Component, Vue, Prop } from "vue-property-decorator";
+import DetailTitleText from "@/components/UI/TitleText.vue";
+import DetailInformationCard from "@/components/UI/InformationCard.vue";
+import DetailSmallInformationCard from "@/components/UI/SmallInformationCard.vue";
+import DetailCTAButton from "@/components/UI/CTAButton.vue";
+import DetailDealCard from "@/components/UI/DealCard.vue";
+import titleSizeDirective from "@/directives/titlesize-directive";
+import { Getter, Mutation, Action } from "vuex-class";
+import { Deal } from "@/store/types";
 
 @Component({
   components: {
@@ -86,34 +87,25 @@ import { Deal } from '@/store/types'
   }
 })
 export default class Detail extends Vue {
-  @Getter isDealsLoading!: boolean
-  @Getter currentDeal!: Deal
-  @Getter isCurrentDealLoading!: boolean
-  @Getter currentDealCategory!: string
-  @Getter relatedDeals!: Deal[]
-  @Getter isDealsPerCurrentCategoryLoading!: boolean
-  @Getter dealsPerCurrentCategory!: []
-  @Getter categorySuccessStatus!: boolean
+  @Getter currentDeal!: Deal;
+  @Getter isCurrentDealLoading!: boolean;
+  @Getter relatedDeals!: Deal[];
+  @Getter isDealsPerCurrentCategoryLoading!: boolean;
+  @Getter categorySuccessStatus!: boolean;
 
-  @Action('getCurrentDeal') getCurrentDeal: any
-  @Action('fetchCurrentDealCategory') fetchCurrentDealCategory: any
-  @Action('fetchDealsByCategory') fetchDealsByCategory: any
-  @Action('loadAllAvailableDeals') loadAllAvailableDeals: any
-  @Action('resetCategorySuccessStatus') resetCategorySuccessStatus: any
+  @Action("getCurrentDeal") getCurrentDeal: any;
+  @Action("fetchCurrentDealCategory") fetchCurrentDealCategory: any;
+  @Action("fetchDealsByCategory") fetchDealsByCategory: any;
+  @Action("loadAllAvailableDeals") loadAllAvailableDeals: any;
+  @Action("resetCategorySuccessStatus") resetCategorySuccessStatus: any;
 
-  created () {
-    this.getCurrentDeal(this.$route.params.id)
-    this.fetchCurrentDealCategory(this.$route.params.id)
+  created() {
+    this.getCurrentDeal(this.$route.params.id);
   }
 
-  mounted () {
-    this.fetchDealsByCategory(this.currentDealCategory)
-    this.resetCategorySuccessStatus()
-  }
-
-  handleWowCherClick (urlPath: string) {
-    let url = 'http://wowcher.co.uk' + urlPath
-    window.open(url)
+  handleWowCherClick(urlPath: string) {
+    let url = "http://wowcher.co.uk" + urlPath;
+    window.open(url);
   }
 }
 </script>

@@ -55,8 +55,17 @@ export interface Deal {
         soldText: string,
         title: string,
         business: {},
-        urlPath: string
+        urlPath: string,
+        category: {
+          id: number,
+          name: string,
+          shortName: string,
+          position: number,
+          canonicalPathType: string,
+          displayInFe: any,
+          locations: any[]
     }
+  }
 
 export interface Category {
    

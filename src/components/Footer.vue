@@ -1,5 +1,6 @@
 <template>
   <footer>
+     <router-link tag="div" to="/documentation">Project Notes</router-link>
   </footer>
 </template>
 

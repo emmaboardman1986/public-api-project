@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="home__header">
-      <img src="@/assets/trainer.svg" class="home__header__img" />
+      <img src="@/assets/ai-exported-trainer.svg" alt="trainer image for decoration" class="home__header__img" />
       <HomeTitleText
         v-titleSizeDirective="'1.7em'"
         class="home__header__title"

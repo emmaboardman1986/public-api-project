@@ -31,7 +31,7 @@
           </div>
           <div class="detail__dealinformation__purchase">
             <div class="detail__dealinformation__purchase__img">
-              <img src="@/assets/explosion.svg" />
+              <img src="@/assets/ai-exported-explosion.svg" alt="explosive shape for decoration"/>
             </div>
             <DetailCTAButton
               text="Purchase Deal From WowCher"

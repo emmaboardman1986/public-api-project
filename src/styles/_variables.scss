@@ -1,4 +1,16 @@
-@import url("https://use.typekit.net/ydt0kuk.css");
+// @import url("https://use.typekit.net/ydt0kuk.css");
+// @import url("./fonts.css");
+
+@font-face {
+    font-family: 'nimbus_sans_lbold';
+    src: url('~/fonts/NimbusSanL-Bol-webfont.woff');
+    font-weight: normal;
+    // font-display: optional;
+    font-style: normal;
+
+}
+
+
 
 // Root
 
@@ -22,7 +34,8 @@ $headerHeight: 8vh;
 
 // Fonts
 
-$titleFont: nimbus-sans, sans-serif;
+// $titleFont: nimbus-sans, sans-serif;
+$titleFont: nimbus_sans_lbold, sans-serif;
 $subTitleFont: toppan-bunkyu-gothic-pr6n, serif;
 
 // BreakPoints

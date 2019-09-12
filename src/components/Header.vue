@@ -8,20 +8,21 @@
       </div>
       <div class="header__menu--mobile">
         <p @click="handleMenuToggle">MENU</p>
-        <div v-if="isMenuOpen" class="nav__links">
-          <p @click="handleMenuToggle">X</p>
-          <router-link tag="li" to="/">Home</router-link>
-          <router-link tag="li" to="/categories">Categories</router-link>
+        <transition name="slide">
+          <div v-if="isMenuOpen" class="nav__links">
+            <p @click="handleMenuToggle">X</p>
+            <router-link tag="li" to="/">Home</router-link>
+            <router-link tag="li" to="/categories">Categories</router-link>
             <router-link tag="li" to="/random">Random</router-link>
-              <router-link tag="li" to="/documentation">Project Notes</router-link>
-        </div>
+            <router-link tag="li" to="/documentation">Project Notes</router-link>
+          </div>
+        </transition>
       </div>
       <div class="header__menu--desktop">
         <div class="nav__links" :class="{scrolling: scrollPosition > 10}">
           <router-link tag="li" to="/">Home</router-link>
-          <router-link tag="li" to="/categories" >Categories</router-link>
+          <router-link tag="li" to="/categories">Categories</router-link>
           <router-link tag="li" to="/random">Random</router-link>
-        
         </div>
       </div>
     </nav>
@@ -89,16 +90,16 @@ nav {
 
 .scrolling {
   @media screen and (min-width: $breakpoint-md) {
-  background-color: $primaryGrey;
-  color: $primaryYellow;
-  .nav__links > li {
-    color: $primaryLight;
-  }
-  .header__logo {
-    a {
+    background-color: $primaryGrey;
+    color: $primaryYellow;
+    .nav__links > li {
       color: $primaryLight;
     }
-  }
+    .header__logo {
+      a {
+        color: $primaryLight;
+      }
+    }
   }
 }
 
@@ -132,9 +133,8 @@ nav {
   align-items: center;
 
   .router-link-exact-active {
-  border-bottom: solid 3px $primaryGreen;
- 
-}
+    border-bottom: solid 3px $primaryGreen;
+  }
 
   li {
     list-style: none;
@@ -164,7 +164,14 @@ nav {
       width: initial;
       color: $primaryDark;
     }
-
   }
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s;
+}
+.slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transform: translateX(100%);
 }
 </style>

@@ -6,7 +6,7 @@
         <div class="documentation__information--content">
           <DocumentationSubTitleText text="Overview" />
           <p>This site is my personal playground.</p>
-          <p>It is a side project designed to improve my understanding of performance and accessibility best practice and optimisation, within the context of a JavaScript-based Single Page Application</p>
+          <p>It is a side project that I'm using to improve my understanding of performance and accessibility best practice and optimisation, within the context of a JavaScript-based Single Page Application</p>
           <p>Using LightHouse metrics as my guide, I am taking the time to explore optimisation techniques I haven't yet had the opportunity to play around with.</p>
         </div>
 

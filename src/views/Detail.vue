@@ -44,17 +44,19 @@
       <div class="detail__desktop-wrapper--related">
         <div class="detail__related">
           <DetailTitleText v-titleSizeDirective="'0.8em'" class="detail__title">Related Deals</DetailTitleText>
-          <div v-if="isDealsPerCurrentCategoryLoading">Loading deals from the same category...</div>
-          <div v-else class="detail_related--message">
-          <div class="detail--404" v-if="!categorySuccessStatus">
+           <div v-if="isDealsPerCurrentCategoryLoading">Loading deals from the same category...</div>
+          <div  v-else class="detail_related--message">
+          <div class="detail__related__dealcards" v-if="categorySuccessStatus">
+            <DetailDealCard v-for="deal in relatedDeals" :key="deal.id" :dealinfo="deal" />
+          </div>
+         
+           <div class="detail--404" v-else >
             <p>Unfortunately, there are no deals currently in the same category.</p>
             <p>
               Why not try something
               <router-link tag="a" to="/random">Random</router-link> instead?
             </p>
-          </div>
-          <div v-else class="detail__related__dealcards">
-            <DetailDealCard v-for="deal in relatedDeals" :key="deal.id" :dealinfo="deal" />
+          </div> 
           </div>
           </div>
         </div>
@@ -117,6 +119,7 @@ export default class Detail extends Vue {
   flex-direction: column;
   align-items: center;
   text-align: left;
+  padding-bottom: 1%;
 
   @media screen and (min-width: $breakpoint-md) {
     margin-top: $headerHeight;

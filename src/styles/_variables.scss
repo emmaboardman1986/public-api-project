@@ -2,20 +2,17 @@
 // @import url("./fonts.css");
 
 @font-face {
-    font-family: 'nimbus_sans_lbold';
-    src: url('~/fonts/NimbusSanL-Bol-webfont.woff');
-    font-weight: normal;
-    font-display: fallback;
-    font-style: normal;
-
+  font-family: "nimbus_sans_lbold";
+  src: url("~/fonts/NimbusSanL-Bol-webfont.woff");
+  font-weight: normal;
+  font-display: fallback;
+  font-style: normal;
 }
-
-
 
 // Root
 
 body {
-    margin: 0px;
+  margin: 0px;
 }
 
 // Colours
@@ -23,10 +20,11 @@ body {
 $primaryDark: #000;
 $primaryLight: #fff;
 $primaryGrey: #192026;
-$darkRed: #D93644;
-$primaryRed: #F2385A;
-$primaryGreen: #02A6A6;
-$primaryYellow: #F2D680;
+$primaryLightGrey: #808080;
+$darkRed: #d93644;
+$primaryRed: #f2385a;
+$primaryGreen: #02a6a6;
+$primaryYellow: #f2d680;
 
 // Sizes
 

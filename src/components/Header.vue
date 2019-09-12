@@ -13,6 +13,7 @@
           <router-link tag="li" to="/">Home</router-link>
           <router-link tag="li" to="/categories">Categories</router-link>
             <router-link tag="li" to="/random">Random</router-link>
+              <router-link tag="li" to="/documentation">Project Notes</router-link>
         </div>
       </div>
       <div class="header__menu--desktop">
@@ -20,6 +21,7 @@
           <router-link tag="li" to="/">Home</router-link>
           <router-link tag="li" to="/categories" >Categories</router-link>
           <router-link tag="li" to="/random">Random</router-link>
+        
         </div>
       </div>
     </nav>

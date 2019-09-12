@@ -4,18 +4,18 @@
     <app-page-background>
       <router-view />
     </app-page-background>
-    <app-footer/>
+    <app-footer class="footer" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
-import AppHeader from '@/components/Header.vue'
-import AppPageBackground from '@/components/UI/PageBackground.vue'
-import AppFooter from '@/components/Footer.vue'
-import axios from 'axios'
-import { Getter, Mutation, Action } from 'vuex-class'
-import { Deal } from './store/types'
+import { Component, Vue, Watch } from "vue-property-decorator";
+import AppHeader from "@/components/Header.vue";
+import AppPageBackground from "@/components/UI/PageBackground.vue";
+import AppFooter from "@/components/Footer.vue";
+import axios from "axios";
+import { Getter, Mutation, Action } from "vuex-class";
+import { Deal } from "./store/types";
 
 @Component({
   components: {
@@ -25,10 +25,10 @@ import { Deal } from './store/types'
   }
 })
 export default class Home extends Vue {
-  @Action('loadAllAvailableDeals') loadAllAvailableDeals: any
+  @Action("loadAllAvailableDeals") loadAllAvailableDeals: any;
 
-  created () {
-    this.loadAllAvailableDeals()
+  created() {
+    this.loadAllAvailableDeals();
   }
 }
 </script>

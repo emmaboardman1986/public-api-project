@@ -252,12 +252,14 @@ export const actions: ActionTree<State, any> = {
     axios
       .get('https://public-api.livingsocial.co.uk/v1/deal/london/' + category)
       .then(response => {
+        commit('updateCategorySuccessStatus', true)
         commit('updateDealsPerCurrentCategory', response.data.deals)
         commit('changeDealsPerCurrentCategoryLoadingState', false)
             })
       .catch((error) => {
         if (error.response.status === 404) {
           commit('updateCategorySuccessStatus', false)
+          commit('changeDealsPerCurrentCategoryLoadingState', false)
         }
       })
   },

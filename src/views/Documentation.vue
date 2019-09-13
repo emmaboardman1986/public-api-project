@@ -6,7 +6,7 @@
         <div class="documentation__information--content">
           <DocumentationSubTitleText text="Overview" />
           <p>This site is my personal playground.</p>
-          <p>It is a side project that I'm using to improve my understanding of performance and accessibility best practice and optimisation, within the context of a JavaScript-based Single Page Application</p>
+          <p>It is a side project that I'm using to improve my understanding of performance and accessibility best practice and optimisation, within the context of a JavaScript-based Single Page Application.</p><p>The site is built in Vue, and pulls data from the <a href="https://public-api.livingsocial.co.uk/docs/index.html" target="_blank" class="documentation__information--bloglink">Living Social public API</a>.</p>
           <p>Using LightHouse metrics as my guide, I am taking the time to explore optimisation techniques I haven't yet had the opportunity to play around with.</p>
         </div>
 
@@ -59,6 +59,9 @@ export default class Documentation extends Vue {}
 </script>
 
 <style lang="scss" scoped>
+a {
+  text-decoration: none;
+}
 .documentation {
   width: 100%;
   display: flex;
